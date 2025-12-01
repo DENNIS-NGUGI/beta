@@ -1,0 +1,472 @@
+{% load static %}
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>BETA Dashboard - Login</title>
+    <meta name="description" content="Bottom-Up Economic Transformation Agenda - Monitoring Dashboard Login">
+    <meta name="keywords" content="BETA, Kenya, Economic Transformation, Dashboard, Login">
+    <!-- Favicons -->
+    <link href="{% static 'img/coat_of_arms.png' %}" rel="icon">
+    <link href="{% static 'img/coat_of_arms.png' %}" rel="apple-touch-icon">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+  
+<style>
+    /* Login Page Custom Styles */
+    .login-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, #F6F4E9 0%, #f6f2dd 100%);
+        padding: 80px 0;
+    }
+
+    .login-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .login-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        padding: 40px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .login-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .login-header h1 {
+        color: #0a1931;
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 28px;
+    }
+
+    .login-header p {
+        color: #6c757d;
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        color: #0a1931;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e3e6f0;
+        border-radius: 10px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #2a5298;
+        box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+    }
+
+    .password-input {
+        position: relative;
+    }
+
+    .password-toggle {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #6c757d;
+        cursor: pointer;
+        padding: 4px;
+    }
+
+    .remember-forgot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .remember-me {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .remember-me input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        border: 2px solid #e3e6f0;
+        cursor: pointer;
+    }
+
+    .remember-me label {
+        color: #0a1931;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .forgot-password {
+        color: #2a5298;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .forgot-password:hover {
+        color: #1a3a5f;
+        text-decoration: underline;
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #DD3209 0%, #982305 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .homepage-btn {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #0c0d0e 0%, #222d3a 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(42, 82, 152, 0.3);
+    }
+
+    .login-btn:active {
+        transform: translateY(0);
+    }
+
+    .divider {
+        text-align: center;
+        margin: 30px 0;
+        position: relative;
+    }
+
+    .divider::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+        background: #e3e6f0;
+    }
+
+    .divider span {
+        background: white;
+        padding: 0 15px;
+        color: #6c757d;
+        font-size: 14px;
+        position: relative;
+    }
+
+    .social-login {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .social-btn {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid #e3e6f0;
+        border-radius: 10px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: #0a1931;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .social-btn:hover {
+        border-color: #2a5298;
+        transform: translateY(-2px);
+    }
+
+    .social-btn.google {
+        color: #DB4437;
+    }
+
+    .social-btn.microsoft {
+        color: #00A4EF;
+    }
+
+    .register-link {
+        text-align: center;
+        margin-top: 25px;
+        padding-top: 25px;
+        border-top: 1px solid #e3e6f0;
+    }
+
+    .register-link p {
+        color: #6c757d;
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+
+    .register-link a {
+        color: #2a5298;
+        text-decoration: none;
+        font-weight: 600;
+        margin-left: 5px;
+        transition: color 0.3s ease;
+    }
+
+    .register-link a:hover {
+        color: #1a3a5f;
+        text-decoration: underline;
+    }
+
+    .login-footer {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .login-footer p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .error-message {
+        background: #fee;
+        border: 1px solid #fcc;
+        color: #c00;
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .error-message i {
+        font-size: 16px;
+    }
+
+    @media (max-width: 576px) {
+        .login-card {
+            padding: 30px 20px;
+            margin: 0 15px;
+        }
+        
+        .social-login {
+            flex-direction: column;
+        }
+    }
+</style>
+    </head>
+    <body>
+        <!-- Login Section -->
+<section class="login-section">
+    <div class="container login-container" data-aos="fade-up">
+        <div class="login-card">
+            <!-- Login Header -->
+            <div class="login-header" data-aos="fade-up" data-aos-delay="100">
+                <img src="{% static 'img/logo.png' %}" alt="Beta Logo" width="100%">  
+                <!-- Divider -->
+                <div class="divider" data-aos="fade-up" data-aos-delay="120"><span></span>
+                </div>        
+                <h1>BETA Dashboard Login</h1>
+            </div>
+
+            <!-- Error Message (hidden by default) -->
+            <div class="error-message" style="display: none;" id="errorMessage">
+                <i class="bi bi-exclamation-triangle"></i>
+                <span>Invalid credentials. Please try again.</span>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" data-aos="fade-up" data-aos-delay="150">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="password-input">
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="remember-forgot">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    Sign In
+                </button>
+            </form>
+            <!-- Divider -->
+            <div class="divider" data-aos="fade-up" data-aos-delay="200">
+                <span></span></div>
+
+            <a href="{% url 'dashboard' %}"> <button type="submit" class="homepage-btn btn-secondary">
+                <i class="bi bi-box-arrow-in-right"></i>
+                Go to homepage
+            </button></a>
+
+        </div>
+    </div>
+</section><!-- /Login Section -->
+
+<script>
+    // Toggle password visibility
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const passwordInput = document.getElementById('password');
+        const icon = this.querySelector('i');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+    });
+
+    // Form submission
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // Simple validation
+        if (!email || !password) {
+            errorMessage.innerHTML = '<i class="bi bi-exclamation-triangle"></i><span>Please fill in all fields.</span>';
+            errorMessage.style.display = 'flex';
+            return;
+        }
+        
+        // For demo purposes - redirect to dashboard
+        // In a real application, you would validate credentials with backend
+        if (email === 'admin@beta.go.ke' && password === 'password') {
+            window.location.href = "{% url 'dashboard' %}";
+        } else {
+            // Simulate API call with timeout
+            setTimeout(() => {
+                errorMessage.innerHTML = '<i class="bi bi-exclamation-triangle"></i><span>Invalid email or password. Please try again.</span>';
+                errorMessage.style.display = 'flex';
+            }, 500);
+        }
+    });
+
+    // Demo login buttons
+    document.querySelectorAll('.social-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const provider = this.classList.contains('google') ? 'Google' : 'Microsoft';
+            const errorMessage = document.getElementById('errorMessage');
+            
+            errorMessage.innerHTML = `<i class="bi bi-info-circle"></i><span>${provider} login integration coming soon. Please use email login for now.</span>`;
+            errorMessage.style.display = 'flex';
+            errorMessage.style.backgroundColor = '#e3f2fd';
+            errorMessage.style.borderColor = '#bbdefb';
+            errorMessage.style.color = '#1565c0';
+        });
+    });
+
+    // Forgot password
+    document.querySelector('.forgot-password').addEventListener('click', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const errorMessage = document.getElementById('errorMessage');
+        
+        if (!email) {
+            errorMessage.innerHTML = '<i class="bi bi-info-circle"></i><span>Please enter your email address to reset password.</span>';
+            errorMessage.style.display = 'flex';
+            errorMessage.style.backgroundColor = '#e3f2fd';
+            errorMessage.style.borderColor = '#bbdefb';
+            errorMessage.style.color = '#1565c0';
+            return;
+        }
+        
+        errorMessage.innerHTML = `<i class="bi bi-check-circle"></i><span>Password reset link sent to ${email}</span>`;
+        errorMessage.style.display = 'flex';
+        errorMessage.style.backgroundColor = '#e8f5e9';
+        errorMessage.style.borderColor = '#c8e6c9';
+        errorMessage.style.color = '#2e7d32';
+    });
+</script>
+
+    </body>
+</html>
+
+

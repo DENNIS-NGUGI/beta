@@ -1,0 +1,520 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block pillars  %}active{% endblock %}
+{% block content %}
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>      
+      .card {
+          border-radius: 10px;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          margin-bottom: 1.5rem;
+          border: none;
+      }
+      .card-header {
+          background-color: #f8f9fa;
+          border-bottom: 1px solid #e3e6f0;
+          font-weight: 600;
+      }
+      .chart-container {
+          position: relative;
+          height: 300px;
+          margin-bottom: 1rem;
+      }
+      .priority-badge {
+          background-color: #2a5298;
+          color: white;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+          font-size: 0.75rem;
+      }
+      .stat-card {
+          text-align: center;
+          padding: 1rem;
+          border-radius: 8px;
+          background-color: #f8f9fa;
+      }
+      .stat-value {
+          font-size: 1.8rem;
+          font-weight: bold;
+          color: #2a5298;
+      }
+      .stat-label {
+          font-size: 0.9rem;
+          color: #6c757d;
+      }
+      .housing-project-card {
+          border: 1px solid #e3e6f0;
+          border-radius: 8px;
+          padding: 1rem;
+          margin-bottom: 1rem;
+      }
+      .housing-project-card h6 {
+          color: #2a5298;
+          margin-bottom: 0.5rem;
+      }
+
+  </style>
+
+  {% include "layout/pillar-nav.html" %}
+
+   
+<div class="container">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <h2>BETA - Affordable Housing Pillar</h2>
+            <p>Bottom- Up Economic Transformation Agenda 
+                (BETA)</p>
+            </div><!-- End Section Title -->
+
+
+    <!-- Key Stats Row -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-value">111,975</div>
+                <div class="stat-label">Total Units Pipeline</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-value">Sh1.8m</div>
+                <div class="stat-label">Avg. AHP Unit Price</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-value">5%</div>
+                <div class="stat-label">AHP Interest Rate</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-value">Sh13,000</div>
+                <div class="stat-label">Avg. Monthly Repayment</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Charts Row -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>Housing Pipeline Distribution (Units)</span>
+                    <span class="priority-badge">Priority 3</span>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="housingPipelineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Affordable Housing vs Market Comparison</div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="costComparisonChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Second Charts Row -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Monthly Repayment Savings (36sqm Unit)</div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="savingsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Project Completion Status</div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="completionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Housing Projects Section -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Featured Affordable Housing Projects</div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Project 1 -->
+                        <div class="col-md-4">
+                            <div class="housing-project-card">
+                                <h6>Kings Orchid Thika</h6>
+                                <p><strong>Price:</strong> From KES 1,000,000</p>
+                                <p><strong>Location:</strong> Kambu - Thika Town</p>
+                                <p><strong>Status:</strong> Available</p>
+                            </div>
+                        </div>
+                        <!-- Project 2 -->
+                        <div class="col-md-4">
+                            <div class="housing-project-card">
+                                <h6>Kings Sapphire</h6>
+                                <p><strong>Price:</strong> From KES 1,550,000</p>
+                                <p><strong>Location:</strong> Nakuru - Bondeni</p>
+                                <p><strong>Status:</strong> Available</p>
+                            </div>
+                        </div>
+                        <!-- Project 3 -->
+                        <div class="col-md-4">
+                            <div class="housing-project-card">
+                                <h6>Starehe Point 1</h6>
+                                <p><strong>Price:</strong> From KES 1,650,000</p>
+                                <p><strong>Location:</strong> Nairobi - Starehe Constituency</p>
+                                <p><strong>Status:</strong> Available</p>
+                            </div>
+                        </div>
+                        <!-- Project 4 -->
+                        <div class="col-md-4">
+                            <div class="housing-project-card">
+                                <h6>Mabera Affordable Housing</h6>
+                                <p><strong>Price:</strong> From KES 1,440,000</p>
+                                <p><strong>Location:</strong> Migori - Makura</p>
+                                <p><strong>Status:</strong> Available</p>
+                            </div>
+                        </div>
+                        <!-- Project 5 -->
+                        <div class="col-md-4">
+                            <div class="housing-project-card">
+                                <h6>Machakos Township</h6>
+                                <p><strong>Price:</strong> From KES 960,000</p>
+                                <p><strong>Location:</strong> Machakos - Machakos</p>
+                                <p><strong>Status:</strong> Available</p>
+                            </div>
+                        </div>
+                        <!-- Project 6 -->
+                        <div class="col-md-4">
+                            <div class="housing-project-card">
+                                <h6>Pangani Affordable Housing</h6>
+                                <p><strong>Price:</strong> From KES 1,000,000</p>
+                                <p><strong>Location:</strong> Nairobi - Near Pangani Police Station</p>
+                                <p><strong>Status:</strong> Available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Value Drivers and Components -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Affordable Housing Value Drivers & Components</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Key Value Drivers</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Parameter</th>
+                                            <th>AHP</th>
+                                            <th>Market</th>
+                                            <th>Savings</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Break-even price/sqm</td>
+                                            <td>Sh50,000</td>
+                                            <td>Sh75,000</td>
+                                            <td>Sh25,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>36sqm unit price</td>
+                                            <td>Sh1.8m</td>
+                                            <td>Sh2.7m</td>
+                                            <td>Sh900,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Interest rate p.a.</td>
+                                            <td>5%</td>
+                                            <td>15%</td>
+                                            <td>10%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Loan term (years)</td>
+                                            <td>25</td>
+                                            <td>15</td>
+                                            <td>+10 years</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Monthly repayment</td>
+                                            <td>Sh13,000</td>
+                                            <td>Sh41,600</td>
+                                            <td>Sh28,600</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Programme Components</h5>
+                            <div class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <h6>Public-Private Partnerships (PPPs)</h6>
+                                    <p class="mb-0">Collaboration with private developers for project implementation</p>
+                                </div>
+                            </div>
+                            <div class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <h6>Developer Financing</h6>
+                                    <p class="mb-0">Financial support and incentives for housing developers</p>
+                                </div>
+                            </div>
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6>Mortgage Accessibility</h6>
+                                    <p class="mb-0">Affordable mortgage schemes with 5% interest rate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pipeline Data Table -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Active Housing Pipeline (Units)</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Project Category</th>
+                                    <th>Units</th>
+                                    <th>Status</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Completed Projects</td>
+                                    <td>1,189</td>
+                                    <td><span class="badge bg-success">Completed</span></td>
+                                    <td>Fully completed and occupied units</td>
+                                </tr>
+                                <tr>
+                                    <td>2018-2022 Cycle Units</td>
+                                    <td>8,872</td>
+                                    <td><span class="badge bg-warning">Ongoing</span></td>
+                                    <td>Units from previous administration cycle</td>
+                                </tr>
+                                <tr>
+                                    <td>Launched Projects (Sep 2022+)</td>
+                                    <td>41,641</td>
+                                    <td><span class="badge bg-primary">Active</span></td>
+                                    <td>Newly launched affordable housing projects</td>
+                                </tr>
+                                <tr>
+                                    <td>Recently Launched</td>
+                                    <td>19,535</td>
+                                    <td><span class="badge bg-info">New</span></td>
+                                    <td>Most recent project launches</td>
+                                </tr>
+                                <tr>
+                                    <td>Private Sector AHP Projects</td>
+                                    <td>6,813</td>
+                                    <td><span class="badge bg-secondary">Private</span></td>
+                                    <td>Private sector incentive-supported projects</td>
+                                </tr>
+                                <tr>
+                                    <td>Institutional Housing (KDF)</td>
+                                    <td>3,069</td>
+                                    <td><span class="badge bg-dark">PPP</span></td>
+                                    <td>Kenya Defence Forces housing under PPP</td>
+                                </tr>
+                                <tr>
+                                    <td>Institutional Housing (Police/Prisons)</td>
+                                    <td>2,496</td>
+                                    <td><span class="badge bg-warning">Negotiation</span></td>
+                                    <td>Police and prison staff housing</td>
+                                </tr>
+                                <tr>
+                                    <td>Developer Model Projects</td>
+                                    <td>4,000</td>
+                                    <td><span class="badge bg-warning">Ongoing</span></td>
+                                    <td>Various institutional housing projects</td>
+                                </tr>
+                                <tr>
+                                    <td>Projects Under Negotiation</td>
+                                    <td>24,360</td>
+                                    <td><span class="badge bg-secondary">Negotiation</span></td>
+                                    <td>Future pipeline projects</td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td><strong>TOTAL</strong></td>
+                                    <td><strong>111,975</strong></td>
+                                    <td colspan="2"><strong>Total Active Pipeline</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Housing Pipeline Chart
+    const housingPipelineCtx = document.getElementById('housingPipelineChart').getContext('2d');
+    new Chart(housingPipelineCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Completed', '2018-2022', 'Launched', 'Recent', 'Private', 'KDF', 'Police', 'Developer', 'Negotiation'],
+            datasets: [{
+                label: 'Number of Units',
+                data: [1189, 8872, 41641, 19535, 6813, 3069, 2496, 4000, 24360],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.7)',   // Completed
+                    'rgba(255, 206, 86, 0.7)',   // 2018-2022
+                    'rgba(54, 162, 235, 0.7)',   // Launched
+                    'rgba(153, 102, 255, 0.7)',  // Recent
+                    'rgba(255, 99, 132, 0.7)',   // Private
+                    'rgba(255, 159, 64, 0.7)',   // KDF
+                    'rgba(201, 203, 207, 0.7)',  // Police
+                    'rgba(0, 123, 255, 0.7)',    // Developer
+                    'rgba(40, 167, 69, 0.7)'     // Negotiation
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of Units'
+                    }
+                },
+                x: {
+                    ticks: {
+                        maxRotation: 45,
+                        minRotation: 45
+                    }
+                }
+            }
+        }
+    });
+
+    // Cost Comparison Chart
+    const costComparisonCtx = document.getElementById('costComparisonChart').getContext('2d');
+    new Chart(costComparisonCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Unit Price', 'Interest Rate', 'Monthly Payment'],
+            datasets: [{
+                label: 'AHP',
+                data: [1.8, 5, 13],
+                backgroundColor: 'rgba(54, 162, 235, 0.7)'
+            }, {
+                label: 'Market',
+                data: [2.7, 15, 41.6],
+                backgroundColor: 'rgba(255, 99, 132, 0.7)'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Value'
+                    }
+                }
+            }
+        }
+    });
+
+    // Savings Chart
+    const savingsCtx = document.getElementById('savingsChart').getContext('2d');
+    new Chart(savingsCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Monthly Repayment', 'Annual Savings'],
+            datasets: [{
+                label: 'AHP',
+                data: [13, 13*12],
+                backgroundColor: 'rgba(54, 162, 235, 0.7)'
+            }, {
+                label: 'Market',
+                data: [41.6, 41.6*12],
+                backgroundColor: 'rgba(255, 99, 132, 0.7)'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'KES (Thousand)'
+                    }
+                }
+            }
+        }
+    });
+
+    // Completion Chart
+    const completionCtx = document.getElementById('completionChart').getContext('2d');
+    new Chart(completionCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Completed', 'Under Construction', 'Planned'],
+            datasets: [{
+                data: [1189, 51617, 59169], // Completed + sum of active construction categories
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(153, 102, 255, 0.7)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Project Status Distribution'
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

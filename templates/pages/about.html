@@ -1,0 +1,101 @@
+{% extends "layout/base.html" %}
+{% block about  %}active{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- About Section -->
+    <section id="about" class="about section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Bottom-Up Economic Transformation Agenda (BETA)</h2>
+          <p>Transforming Kenya's Economy Through Strategic Priorities</p>
+        </div><!-- End Section Title -->
+  
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+  
+          <div class="row g-4 align-items-stretch">
+  
+            <div class="col-lg-5 order-lg-2" data-aos="fade-left" data-aos-delay="200">
+              <aside class="showcase">
+                <figure class="showcase-main">
+                  <img src="{% static 'img/about/about.jpg' %}" alt="BETA Economic Growth" class="img-fluid">
+                  <figcaption class="badge-note" data-aos="zoom-in" data-aos-delay="350">
+                    <i class="bi bi-graph-up-arrow"></i>
+                    <div>
+                      <strong>Economic Growth</strong>
+                      <small>31 Priority Initiatives</small>
+                    </div>
+                  </figcaption>
+                </figure>
+              </aside>
+            </div>
+  
+            <div class="col-lg-7 order-lg-1" data-aos="fade-right" data-aos-delay="200">
+              <article class="intro-card">
+                <div class="intro-head">
+                  <span class="kicker"><i class="bi bi-stars me-1"></i>Our Mission</span>
+                  <h2>Transforming Kenya's Economy Through Bottom-Up Approach</h2>
+                </div>
+  
+                <div class="intro-body">
+                  <p class="lead">BETA addresses structural challenges while responding to multiple persistent shocks through targeted economic interventions.</p>
+                  <p>The agenda focuses on five key priorities: reducing cost of living, expanding revenue base, increasing foreign exchange, creating jobs, and promoting inclusive growth through strategic sectoral investments.</p>
+  
+                  <div class="feature-list row gy-3">
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="250">
+                      <div class="feature-item">
+                        <i class="bi bi-shield-check"></i>
+                        <div class="text">
+                          <h6>Data-Driven Monitoring</h6>
+                          <p>Real-time tracking of 31 priority initiatives across 5 key sectors with comprehensive performance metrics.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                      <div class="feature-item">
+                        <i class="bi bi-graph-up"></i>
+                        <div class="text">
+                          <h6>Impact Assessment</h6>
+                          <p>Continuous evaluation of economic transformation outcomes and sectoral performance indicators.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="metric-band" data-aos="fade-up" data-aos-delay="350">
+                    <div class="metric">
+                      <span class="value">5</span>
+                      <span class="label">Core Pillars</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="metric">
+                      <span class="value">31</span>
+                      <span class="label">Initiatives</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="metric">
+                      <span class="value">100%</span>
+                      <span class="label">Coverage</span>
+                    </div>
+                  </div>
+  
+                  <div class="actions d-flex flex-wrap align-items-center gap-3" data-aos="fade-up" data-aos-delay="400">
+                    <a href="{% url 'pillars' %}" class="btn btn-accent">
+                      <i class="bi bi-rocket-takeoff me-1"></i> Explore Pillars
+                    </a>
+                    <a href="{% url 'projects' %}" class="link-more">
+                      View Priority Projects <i class="bi bi-arrow-right-short"></i>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+  
+          </div>
+  
+        </div>
+  
+      </section><!-- /About Section -->
+
+      {% endblock %}

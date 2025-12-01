@@ -1,0 +1,264 @@
+{% extends "layout/base.html" %}
+{% block dashboard  %}active{% endblock %}
+{% load static %}
+{% block content %}
+   
+   <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row align-items-center gy-5">
+          <div class="col-lg-7">
+            <div class="hero-card shadow-sm" data-aos="fade-right" data-aos-delay="150">
+              <div class="eyebrow d-inline-flex align-items-center mb-3">
+                <i class="bi bi-stars me-2"></i>
+                <span>Bottom-Up Economic Transformation Agenda</span>
+              </div>
+              <div class="content">
+                <h2 class="display-5 fw-bold mb-3">Transforming Kenya's Economy Through Data-Driven Insights</h2>
+                <p class="lead mb-4">Monitoring the progress of Kenya's 5th Administration's key priorities across Agriculture, MSME Economy, Affordable Housing, Universal Health Coverage, and Digital Transformation.</p>
+                <div class="d-flex flex-wrap gap-3">
+                  <a href="#featured-services" class="btn btn-primary-ghost">
+                    <span>Explore Dashboard</span>
+                    <i class="bi bi-arrow-right ms-2"></i>
+                  </a>
+                  <a href="https://youtu.be/OqZ4q-IHyx0?si=rmmNk6xONm6wifFX" class="glightbox btn-video d-inline-flex align-items-center">
+                    <span class="play-icon d-inline-flex align-items-center justify-content-center me-2">
+                      <i class="bi bi-play-fill"></i>
+                    </span>
+                    <span>Watch Overview</span>
+                  </a>
+                </div>
+                <div class="mini-stats d-flex flex-wrap gap-4 mt-4" data-aos="zoom-in" data-aos-delay="250">
+                  <div class="stat d-flex align-items-center">
+                    <i class="bi bi-lightning-charge me-2"></i>
+                    <span>31 Priority Initiatives</span>
+                  </div>
+                  <div class="stat d-flex align-items-center">
+                    <i class="bi bi-shield-check me-2"></i>
+                    <span>Real-time Monitoring</span>
+                  </div>
+                  <div class="stat d-flex align-items-center">
+                    <i class="bi bi-people me-2"></i>
+                    <span>5 Key Sectors</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="media-stack" data-aos="zoom-in" data-aos-delay="200">
+              <figure class="media primary shadow-sm">
+                <img src="{% static 'img/illustration/illustration-8.webp' %}" class="img-fluid" alt="BETA Dashboard Overview">
+              </figure>
+              <figure class="media secondary shadow-sm">
+                <img src="{% static 'img/illustration/illustration-15.webp' %}" class="img-fluid" alt="Economic Growth Visualization">
+              </figure>
+              <div class="floating-badge d-flex align-items-center shadow-sm" data-aos="fade-down" data-aos-delay="300">
+                <i class="bi bi-award me-2"></i>
+                <span>Mid-Term Report 2025</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <!-- Featured Services Section -->
+    <section id="featured-services" class="featured-services section">
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+              <h2>Dashboard Features</h2>
+              <p>Comprehensive Monitoring & Analytics</p>
+            </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row g-4">
+
+          <!-- Card 1 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item">
+              <div class="icon">
+                <i class="bi bi-stack"></i>
+              </div>
+              <h3>Core Pillar Analytics</h3>
+              <p>Track progress across 5 core BETA pillars with real-time data visualization, performance metrics, and milestone tracking for informed decision-making.</p>
+              <div class="card-links">
+                <a href="{% url 'pillars' %}" class="link-item">
+                  View Pillars
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <!-- Card 2 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item">
+              <div class="icon">
+                <i class="bi bi-shield-check"></i>
+              </div>
+              <h3>Performance Monitoring</h3>
+              <p>Monitor key performance indicators, implementation progress, and impact assessment across all 31 priority initiatives with detailed analytics.</p>
+              <div class="card-links">
+                <a href="{% url 'projects' %}" class="link-item">
+                  View Progress
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <!-- Card 3 -->
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item">
+              <div class="icon">
+                <i class="bi bi-graph-up"></i>
+              </div>
+              <h3>Ministry Submissions</h3>
+              <p>Access detailed reports and data submissions from individual ministries, providing comprehensive insights into sector-specific implementations.</p>
+              <div class="card-links">
+                <a href="{% url 'about' %}" class="link-item">
+                  Learn More
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Featured Services Section -->
+
+<!-- Stats Section -->
+<section id="stats" class="stats section">
+              <!-- Section Title -->
+              <div class="container section-title" data-aos="fade-up">
+                <h2>Pillars vs Priorities</h2>
+                <p>Analytics</p>
+              </div><!-- End Section Title -->
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-12">
+        <div class="stats-board">
+
+          <article class="stat-tile" data-aos="fade-up" data-aos-delay="150">
+            <div class="tile-head">
+              <i class="bi bi-emoji-smile"></i>
+              <div class="label">
+                <h6 class="title">Agriculture</h6>
+                <small class="hint">11 Priority Pillars</small>
+              </div>
+            </div>
+            <div class="tile-metric">
+              <span class="metric-number purecounter" data-purecounter-start="0" data-purecounter-end="11" data-purecounter-duration="1"></span>
+            </div>
+            <div class="tile-footer">
+            <a href="{% url 'agriculture' %}" class="link-item">
+              Explore
+              <i class="bi bi-arrow-right"></i>
+            </a>
+            </div>
+          </article><!-- End Stat Tile -->
+
+          <article class="stat-tile" data-aos="fade-up" data-aos-delay="200">
+            <div class="tile-head">
+              <i class="bi bi-journal-richtext"></i>
+              <div class="label">
+                <h6 class="title">MSME Economy</h6>
+                <small class="hint">3 Priority Pillars</small>
+              </div>
+            </div>
+            <div class="tile-metric">
+              <span class="metric-number purecounter" data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1"></span>
+            </div>
+            <div class="tile-footer">
+              <a href="{% url 'msme' %}" class="link-item">
+                Explore
+                <i class="bi bi-arrow-right"></i>
+              </a>
+              </div>
+          </article><!-- End Stat Tile -->
+
+          <article class="stat-tile" data-aos="fade-up" data-aos-delay="250">
+            <div class="tile-head">
+              <i class="bi bi-house"></i>
+              <div class="label">
+                <h6 class="title">Affordable Housing</h6>
+                <small class="hint">5 Priority Pillars</small>
+              </div>
+            </div>
+            <div class="tile-metric">
+              <span class="metric-number purecounter" data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1"></span>
+            </div>
+            <div class="tile-footer">
+              <a href="{% url 'housing' %}" class="link-item">
+                Explore
+                <i class="bi bi-arrow-right"></i>
+              </a>
+              </div>
+          </article><!-- End Stat Tile -->
+
+          <article class="stat-tile" data-aos="fade-up" data-aos-delay="300">
+            <div class="tile-head">
+              <i class="bi bi-heart-pulse"></i>
+              <div class="label">
+                <h6 class="title">Universal Health</h6>
+                <small class="hint">6 Priority Pillars</small>
+              </div>
+            </div>
+            <div class="tile-metric">
+              <span class="metric-number purecounter" data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1"></span>
+            </div>
+            <div class="tile-footer">
+              <a href="{% url 'uhc' %}" class="link-item">
+                Explore
+                <i class="bi bi-arrow-right"></i>
+              </a>
+              </div>
+          </article><!-- End Stat Tile -->
+
+          <article class="stat-tile" data-aos="fade-up" data-aos-delay="350">
+            <div class="tile-head">
+              <i class="bi bi-laptop"></i>
+              <div class="label">
+                <h6 class="title">Digital & Creative</h6>
+                <small class="hint">6 Priority Pillars</small>
+              </div>
+            </div>
+            <div class="tile-metric">
+              <span class="metric-number purecounter" data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1"></span>
+            </div>
+            <div class="tile-footer">
+              <a href="{% url 'digital' %}" class="link-item">
+                Explore
+                <i class="bi bi-arrow-right"></i>
+              </a>
+              </div>
+          </article><!-- End Stat Tile -->
+
+        </div>
+
+        <div class="legend-row" data-aos="fade-down" data-aos-delay="400">
+          <div class="legend-item">
+            <span class="dot dot-primary"></span>
+            <span class="text">Live Data Updates</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section><!-- /Stats Section -->
+
+{% endblock content %}

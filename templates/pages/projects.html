@@ -1,0 +1,1347 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block projects  %}active{% endblock %}
+{% block content %}
+
+
+<style>
+    /* Assurance Banner Styles */
+    .assurance-banner {
+        background: linear-gradient(135deg,  #DD3209 0%, #982305 100%);
+        border-radius: 15px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-top: 40px;
+        box-shadow: 0 10px 30px rgba(42, 82, 152, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .assurance-banner::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+        animation: shimmer 3s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    .assurance-icon {
+        flex-shrink: 0;
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .assurance-icon i {
+        font-size: 28px;
+        color: white;
+    }
+    
+    .assurance-content {
+        flex: 1;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .assurance-content h5 {
+        color: white;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    
+    .assurance-content p {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 0;
+    }
+    
+    /* Login Button Styles */
+    .banner-btn {
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #ffffff 0%, #f7eae4 100%);
+        color: #2a5298;
+        border: none;
+        border-radius: 10px;
+        padding: 14px 24px;
+        font-weight: 600;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+        min-width: 180px;
+    }
+    
+    .banner-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        color: #1a3a5f;
+    }
+    
+    .banner-btn:active {
+        transform: translateY(0);
+    }
+    
+    .banner-btn i {
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .banner-btn:hover i {
+        transform: translateX(3px);
+    }
+    
+    /* Responsive Design for Assurance Banner */
+    @media (max-width: 992px) {
+        .assurance-banner {
+            flex-direction: column;
+            text-align: center;
+            gap: 15px;
+            padding: 25px 20px;
+        }
+        
+        .assurance-icon {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .assurance-icon i {
+            font-size: 24px;
+        }
+        
+        .assurance-content h5 {
+            font-size: 1.1rem;
+        }
+        
+        .assurance-content p {
+            font-size: 0.9rem;
+        }
+        
+        .banner-btn {
+            width: 100%;
+            max-width: 250px;
+            margin-top: 5px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .assurance-banner {
+            padding: 20px 15px;
+        }
+        
+        .banner-btn {
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            min-width: 160px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .assurance-banner {
+            margin-top: 30px;
+        }
+        
+        .assurance-content h5 {
+            font-size: 1rem;
+        }
+        
+        .assurance-content p {
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Layout Styles */
+    .projects-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    
+    .stats-sidebar {
+        flex: 0 0 300px;
+        background: linear-gradient(135deg,  #DD3209 0%, #982305 100%);
+        border-radius: 15px;
+        padding: 25px;
+        height: fit-content;
+        position: sticky;
+        top: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .content-main {
+        flex: 1;
+        min-width: 300px;
+    }
+    
+    /* Sector Statistics Styles */
+    .sector-stats-title {
+        color: white;
+        font-weight: 600;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .sector-stats-title i {
+        font-size: 1.4rem;
+    }
+    
+    .stats-grid {
+        display: grid;
+        gap: 15px;
+    }
+    
+    .stat-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .stat-card.active {
+        border: 2px solid #ffd700;
+        box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #2a5298;
+        line-height: 1;
+        margin-bottom: 5px;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        color: #6c757d;
+        font-weight: 500;
+    }
+    
+    .stat-category {
+        display: block;
+        font-size: 0.8rem;
+        color: #2a5298;
+        font-weight: 600;
+        margin-top: 5px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .stats-total {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .total-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+    }
+    
+    .total-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2a5298;
+        line-height: 1;
+        margin-bottom: 5px;
+    }
+    
+    .total-label {
+        font-size: 1rem;
+        color: #6c757d;
+        font-weight: 500;
+    }
+    
+    .total-subtext {
+        font-size: 0.8rem;
+        color: #2a5298;
+        margin-top: 5px;
+    }
+    
+    /* Feature Items Card Styles - RESTORED */
+    .feature-item {
+        display: block;
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e3e6f0;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .feature-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        border-color: #2a5298;
+    }
+    
+    .feature-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: #2a5298;
+        border-radius: 12px 0 0 12px;
+    }
+    
+    /* Category-specific left border colors */
+    .feature-item[data-category="agriculture"]::before {
+        background: linear-gradient(to bottom, #28a745, #20c997);
+    }
+    
+    .feature-item[data-category="msme"]::before {
+        background: linear-gradient(to bottom, #17a2b8, #20c9b8);
+    }
+    
+    .feature-item[data-category="housing"]::before {
+        background: linear-gradient(to bottom, #fd7e14, #ffc107);
+    }
+    
+    .feature-item[data-category="health"]::before {
+        background: linear-gradient(to bottom, #dc3545, #e83e8c);
+    }
+    
+    .feature-item[data-category="digital"]::before {
+        background: linear-gradient(to bottom, #6f42c1, #6610f2);
+    }
+    
+    /* Icon Styles - RESTORED */
+    .f-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        font-size: 24px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .f-icon::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: currentColor;
+        opacity: 0.1;
+    }
+    
+    /* Category-specific icon styles */
+    .badge-blue { color: #2a5298; }
+    .badge-green { color: #28a745; }
+    .badge-purple { color: #6f42c1; }
+    .badge-orange { color: #fd7e14; }
+    .badge-cyan { color: #17a2b8; }
+    .badge-pink { color: #e83e8c; }
+    
+    /* Content Styles */
+    .f-body {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .f-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #2a5298;
+        margin-bottom: 12px;
+        line-height: 1.4;
+    }
+    
+    .f-text {
+        color: #6c757d;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    
+    .f-meta {
+        display: flex;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid #e3e6f0;
+    }
+    
+    .f-meta span {
+        display: inline-flex;
+        align-items: center;
+        background: #f8f9fa;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+    
+    .f-meta i {
+        margin-right: 5px;
+    }
+    
+    /* Feature Grid Layout - RESTORED */
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 20px;
+        min-height: 600px;
+    }
+    
+    /* Pagination Styles */
+    .pagination-container {
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+    }
+    
+    .pagination {
+        justify-content: center;
+    }
+    
+    .page-item.active .page-link {
+        background-color: #2a5298;
+        border-color: #2a5298;
+    }
+    
+    .page-link {
+        color: #2a5298;
+        border: 1px solid #dee2e6;
+        padding: 0.5rem 1rem;
+        margin: 0 3px;
+        border-radius: 5px;
+    }
+    
+    .page-link:hover {
+        background-color: #f8f9fa;
+        color: #1a3a5f;
+    }
+    
+    /* Page Info */
+    .page-info {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin: 10px 0 20px;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+    
+    /* Search Results Info */
+    .search-results-info {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+        display: none;
+        border-left: 4px solid #2a5298;
+    }
+    
+    .search-results-info.show {
+        display: block;
+    }
+    
+    /* No Results Message */
+    .no-results {
+        text-align: center;
+        padding: 60px 20px;
+        color: #6c757d;
+        display: none;
+        grid-column: 1 / -1;
+        background: #f8f9fa;
+        border-radius: 12px;
+        border: 2px dashed #dee2e6;
+    }
+    
+    .no-results.show {
+        display: block;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 1200px) {
+        .feature-grid {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+    }
+    
+    @media (max-width: 992px) {
+        .projects-container {
+            flex-direction: column;
+        }
+        
+        .stats-sidebar {
+            flex: 0 0 auto;
+            position: static;
+            width: 100%;
+        }
+        
+        .content-main {
+            width: 100%;
+        }
+        
+        .feature-grid {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .feature-item {
+            padding: 20px;
+        }
+        
+        .f-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+        }
+        
+        .f-title {
+            font-size: 1.1rem;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .stat-card {
+            padding: 12px;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+        }
+        
+        .total-number {
+            font-size: 2rem;
+        }
+        
+        .feature-item {
+            padding: 15px;
+        }
+    }
+    
+    @media (max-width: 400px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .feature-grid {
+            gap: 15px;
+        }
+    }
+</style>
+
+    <!-- Search Section -->
+<section class="search-section py-4 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="search-box" data-aos="fade-up" data-aos-delay="100">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="bi bi-search text-muted"></i>
+                        </span>
+                        <input type="text" class="form-control border-start-0" id="featureSearch" placeholder="Search across all 31 initiatives...">
+                        <button class="btn btn-outline-secondary" type="button" id="clearSearch">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    <div class="form-text mt-2 text-center">
+                        <small>Search by initiative name, description, or category</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container" data-aos="fade-up" data-aos-delay="150">
+    <div class="projects-container">
+        <!-- Statistics Sidebar -->
+        <div class="stats-sidebar">
+            <div class="sector-stats-title">
+                <i class="bi bi-graph-up-arrow"></i>
+                Sector Priority Statistics
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card active" data-category="all">
+                    <div class="stat-number">31</div>
+                    <div class="stat-label">Total Initiatives</div>
+                    <span class="stat-category">All Sectors</span>
+                </div>
+                <div class="stat-card" data-category="agriculture">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">Priority Initiatives</div>
+                    <span class="stat-category">Agriculture</span>
+                </div>
+                <div class="stat-card" data-category="msme">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Priority Initiatives</div>
+                    <span class="stat-category">MSME Economy</span>
+                </div>
+                <div class="stat-card" data-category="housing">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Priority Initiatives</div>
+                    <span class="stat-category">Affordable Housing</span>
+                </div>
+                <div class="stat-card" data-category="health">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Priority Initiatives</div>
+                    <span class="stat-category">Universal Health Coverage</span>
+                </div>
+                <div class="stat-card" data-category="digital">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Priority Initiatives</div>
+                    <span class="stat-category">Digital & Creative Economy</span>
+                </div>
+            </div>
+            
+            <div class="stats-total">
+                <div class="total-card">
+                    <div class="total-number">31</div>
+                    <div class="total-label">Total BETA Priorities</div>
+                    <div class="total-subtext">5 Key Sectors</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-main">
+            <!-- Search Results Info -->
+            <div class="search-results-info" id="searchResultsInfo">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="bi bi-search me-2"></i>
+                        <span id="searchResultsCount">0 results found</span>
+                        for "<span id="searchQuery"></span>"
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary" id="clearSearchResults">
+                        Clear Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Current Page Info -->
+            <div class="page-info" id="pageInfo">
+                Showing initiatives 1-9 of 31
+            </div>
+            
+            <!-- Feature Grid -->
+            <div class="feature-grid">
+                <!-- Agriculture Group -->
+                <div class="feature-item" data-category="agriculture" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="f-icon badge-blue">
+                        <i class="bi bi-flower1"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Fertiliser Subsidy Programme</h4>
+                        <p class="f-text">Government-subsidized fertilizer distribution to boost agricultural productivity and support small-scale farmers across the nation.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Agriculture</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="agriculture" data-aos="zoom-in" data-aos-delay="250">
+                    <div class="f-icon badge-green">
+                        <i class="bi bi-cup-hot"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Ten Value Chains: Tea</h4>
+                        <p class="f-text">Enhancing tea production, processing, and export through modernization of factories and support for smallholder tea farmers.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Agriculture</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="agriculture" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="f-icon badge-purple">
+                        <i class="bi bi-basket"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Ten Value Chains: Cotton, Textile & Apparel</h4>
+                        <p class="f-text">Revitalizing the cotton industry from farm to fabric, creating jobs in textile manufacturing and boosting apparel exports.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Agriculture</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="agriculture" data-aos="zoom-in" data-aos-delay="350">
+                    <div class="f-icon badge-orange">
+                        <i class="bi bi-egg"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Ten Value Chains: Maize</h4>
+                        <p class="f-text">Increasing maize production through improved seeds, irrigation, and post-harvest management to achieve food security.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Agriculture</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="agriculture" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="f-icon badge-cyan">
+                        <i class="bi bi-basket2"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Ten Value Chains: Rice</h4>
+                        <p class="f-text">Expanding rice irrigation schemes and promoting modern farming techniques to reduce rice imports and boost local production.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Agriculture</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="agriculture" data-aos="zoom-in" data-aos-delay="450">
+                    <div class="f-icon badge-pink">
+                        <i class="bi bi-droplet"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Ten Value Chains: Edible Oil</h4>
+                        <p class="f-text">Promoting oil crop cultivation (sunflower, canola, palm) to reduce edible oil imports and create value addition opportunities.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Agriculture</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="agriculture" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="f-icon badge-blue">
+                        <i class="bi bi-flower3"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Ten Value Chains: Sugarcane</h4>
+                        <p class="f-text">Revitalizing the sugar industry through factory modernization, farmer support, and diversification into ethanol and power generation.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Agriculture</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="agriculture" data-aos="zoom-in" data-aos-delay="250">
+                    <div class="f-icon badge-green">
+                        <i class="bi bi-flower2"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Ten Value Chains: Pyrethrum</h4>
+                        <p class="f-text">Re-establishing Kenya as a global leader in pyrethrum production through research, farmer training, and market linkages.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Agriculture</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="agriculture" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="f-icon badge-purple">
+                        <i class="bi bi-cup-straw"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Ten Value Chains: Coffee</h4>
+                        <p class="f-text">Transforming the coffee sector through direct sales, value addition, and farmer empowerment to increase incomes and exports.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Agriculture</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="agriculture" data-aos="zoom-in" data-aos-delay="350">
+                    <div class="f-icon badge-orange">
+                        <i class="bi bi-cup"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Ten Value Chains: Dairy</h4>
+                        <p class="f-text">Enhancing dairy productivity through breed improvement, pasture management, and cold chain infrastructure development.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Agriculture</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="agriculture" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="f-icon badge-cyan">
+                        <i class="bi bi-bag"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Ten Value Chains: Leather</h4>
+                        <p class="f-text">Developing a complete leather value chain from livestock rearing to finished products, creating jobs and boosting exports.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Agriculture</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <!-- MSME Economy Group -->
+                <div class="feature-item" data-category="msme" data-aos="zoom-in" data-aos-delay="450">
+                    <div class="f-icon badge-pink">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Financial Inclusion & Access to Affordable Credit</h4>
+                        <p class="f-text">Expanding access to affordable credit for MSMEs through digital lending platforms and favorable lending policies.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>MSME Economy</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="msme" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="f-icon badge-blue">
+                        <i class="bi bi-shop"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Access to Markets</h4>
+                        <p class="f-text">Creating market linkages for MSMEs through digital platforms, trade fairs, and partnerships with large corporations.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>MSME Economy</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="msme" data-aos="zoom-in" data-aos-delay="250">
+                    <div class="f-icon badge-green">
+                        <i class="bi bi-building"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Supportive Commercial Infrastructure</h4>
+                        <p class="f-text">Developing business parks, incubation centers, and common user facilities to support MSME growth and productivity.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>MSME Economy</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <!-- Affordable Housing Group -->
+                <div class="feature-item" data-category="housing" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="f-icon badge-purple">
+                        <i class="bi bi-house-door"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Provision of 200,000 Affordable Housing Units Annually</h4>
+                        <p class="f-text">Massive public-private partnership to deliver quality affordable housing units across all counties.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Affordable Housing</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="housing" data-aos="zoom-in" data-aos-delay="350">
+                    <div class="f-icon badge-orange">
+                        <i class="bi bi-person-workspace"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Create New Jobs in Construction</h4>
+                        <p class="f-text">Generating employment opportunities in construction, manufacturing, and related industries through housing projects.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Affordable Housing</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="housing" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="f-icon badge-cyan">
+                        <i class="bi bi-tools"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Supply of Materials and Jua Kali Sector</h4>
+                        <p class="f-text">Empowering local artisans and manufacturers by sourcing building materials from domestic producers.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Affordable Housing</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="housing" data-aos="zoom-in" data-aos-delay="450">
+                    <div class="f-icon badge-pink">
+                        <i class="bi bi-house-check"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Grow Number of Mortgages From 30,000 to 1,000,000</h4>
+                        <p class="f-text">Dramatically expanding mortgage penetration through innovative financing models and financial literacy programs.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Affordable Housing</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="housing" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="f-icon badge-blue">
+                        <i class="bi bi-cash-coin"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Enabling Low-Cost Mortgages Under Ksh. 10,000 Per Month</h4>
+                        <p class="f-text">Developing mortgage products with government subsidies to make home ownership accessible to low-income earners.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Affordable Housing</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <!-- Universal Health Coverage Group -->
+                <div class="feature-item" data-category="health" data-aos="zoom-in" data-aos-delay="250">
+                    <div class="f-icon badge-green">
+                        <i class="bi bi-heart-pulse"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Sustainable Health Financing</h4>
+                        <p class="f-text">Establishing a sustainable social health insurance fund to provide comprehensive health coverage for all citizens.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Universal Health Coverage</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="health" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="f-icon badge-purple">
+                        <i class="bi bi-hospital"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Enhancing Primary Healthcare</h4>
+                        <p class="f-text">Strengthening primary healthcare facilities and community health services to provide accessible basic healthcare.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Universal Health Coverage</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="health" data-aos="zoom-in" data-aos-delay="350">
+                    <div class="f-icon badge-orange">
+                        <i class="bi bi-clipboard-data"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Health Information System</h4>
+                        <p class="f-text">Implementing a national integrated digital health information system for efficient health service delivery.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Universal Health Coverage</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="health" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="f-icon badge-cyan">
+                        <i class="bi bi-truck"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Supply Chain of Health Products & Technologies</h4>
+                        <p class="f-text">Ensuring reliable supply of medicines, vaccines, and medical equipment through an efficient logistics system.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Universal Health Coverage</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="health" data-aos="zoom-in" data-aos-delay="450">
+                    <div class="f-icon badge-pink">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Human Resources for Health</h4>
+                        <p class="f-text">Training, recruitment, and retention of healthcare professionals to address workforce shortages.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Universal Health Coverage</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="health" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="f-icon badge-blue">
+                        <i class="bi bi-building"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Health Infrastructure</h4>
+                        <p class="f-text">Modernizing and expanding health facilities across all levels to improve service delivery capacity.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Universal Health Coverage</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <!-- Digital Superhighway & Creative Economy Group -->
+                <div class="feature-item" data-category="digital" data-aos="zoom-in" data-aos-delay="250">
+                    <div class="f-icon badge-green">
+                        <i class="bi bi-wifi"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Universal Broadband Connectivity</h4>
+                        <p class="f-text">Expanding high-speed internet infrastructure to reach all counties, wards, and public institutions.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Digital Superhighway & Creative Economy</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="digital" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="f-icon badge-purple">
+                        <i class="bi bi-hdd-stack"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Construction of Digital Hubs</h4>
+                        <p class="f-text">Establishing innovation hubs and digital centers in all constituencies to foster tech entrepreneurship.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Digital Superhighway & Creative Economy</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="digital" data-aos="zoom-in" data-aos-delay="350">
+                    <div class="f-icon badge-orange">
+                        <i class="bi bi-laptop"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Digitalization of GoK Services</h4>
+                        <p class="f-text">Migrating all government services to digital platforms for efficiency, transparency, and accessibility.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Digital Superhighway & Creative Economy</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="digital" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="f-icon badge-cyan">
+                        <i class="bi bi-person-video3"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Digital Training</h4>
+                        <p class="f-text">Providing digital literacy and advanced tech skills training to youth and marginalized groups.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Digital Superhighway & Creative Economy</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="digital" data-aos="zoom-in" data-aos-delay="450">
+                    <div class="f-icon badge-pink">
+                        <i class="bi bi-briefcase"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Digital Jobs</h4>
+                        <p class="f-text">Creating employment opportunities in the digital economy through outsourcing and local tech solutions.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Digital Superhighway & Creative Economy</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <div class="feature-item" data-category="digital" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="f-icon badge-blue">
+                        <i class="bi bi-palette"></i>
+                    </div>
+                    <div class="f-body">
+                        <h4 class="f-title">Creative Economies</h4>
+                        <p class="f-text">Supporting film, music, arts, and cultural industries through infrastructure and market access initiatives.</p>
+                        <div class="f-meta">
+                            <span><i class="bi bi-tag me-1"></i>Digital Superhighway & Creative Economy</span>
+                        </div>
+                    </div>
+                </div><!-- End Feature Item -->
+
+                <!-- No Results Message -->
+                <div class="no-results" id="noResults">
+                    <div class="mb-3">
+                        <i class="bi bi-search" style="font-size: 3rem; color: #dee2e6;"></i>
+                    </div>
+                    <h5>No initiatives found</h5>
+                    <p class="text-muted">Try different keywords or browse by category</p>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-container" data-aos="fade-up" data-aos-delay="480">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination" id="pagination">
+                        <li class="page-item active"><a class="page-link" href="#" data-page="1">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#" data-page="2">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#" data-page="3">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#" data-page="4">4</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next" data-page="next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+
+            
+            <!-- Assurance Banner -->
+            <div class="assurance-banner" data-aos="fade-up" data-aos-delay="500">
+                <div class="assurance-icon">
+                    <i class="bi bi-award-fill"></i>
+                </div>
+                <div class="assurance-content">
+                    <h5>Comprehensive Development Initiatives</h5>
+                    <p>These 31 initiatives represent our commitment to transforming key sectors of the economy and improving livelihoods across the nation.</p>
+                </div>
+                <a href="{% url 'login' %}" class="btn banner-btn">
+                    <i class="bi bi-arrow-right-circle me-1"></i> Login to Explore
+                </a>
+            </div><!-- End Assurance Banner -->
+
+            <!--div class="assurance-banner" data-aos="fade-up" data-aos-delay="500">
+                <div class="assurance-icon">
+                    <i class="bi bi-award-fill"></i>
+                </div>
+                <div class="assurance-content">
+                    <h5>Comprehensive Development Initiatives</h5>
+                    <p>These 31 initiatives represent our commitment to transforming key sectors of the economy and improving livelihoods across the nation.</p>
+                </div>
+                <a href="{% url 'login' %}" class="btn banner-btn">
+                    <i class="bi bi-arrow-right-circle me-1"></i> Login to Explore
+                </a>
+            </div--><!-- End Assurance Banner -->
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize pagination and search
+    document.addEventListener('DOMContentLoaded', function() {
+        const itemsPerPage = 9;
+        const featureItems = document.querySelectorAll('.feature-item:not(#noResults)');
+        const totalItems = featureItems.length;
+        const pageInfo = document.getElementById('pageInfo');
+        const pagination = document.getElementById('pagination');
+        const searchResultsInfo = document.getElementById('searchResultsInfo');
+        const searchResultsCount = document.getElementById('searchResultsCount');
+        const searchQuery = document.getElementById('searchQuery');
+        const noResults = document.getElementById('noResults');
+        const clearSearchResults = document.getElementById('clearSearchResults');
+        const statCards = document.querySelectorAll('.stat-card');
+        
+        let currentSearchTerm = '';
+        let currentCategory = 'all';
+        let currentPage = 1;
+        
+        // Initialize pagination controls
+        function initPagination() {
+            const visibleItems = getVisibleItems();
+            const filteredPages = Math.ceil(visibleItems.length / itemsPerPage);
+            
+            // Clear existing pagination except last item (next button)
+            const pageLinks = pagination.querySelectorAll('.page-item:not(:last-child)');
+            pageLinks.forEach(link => link.remove());
+            
+            // Create page numbers
+            for (let i = 1; i <= filteredPages; i++) {
+                const pageItem = document.createElement('li');
+                pageItem.className = 'page-item' + (i === 1 ? ' active' : '');
+                pageItem.innerHTML = `<a class="page-link" href="#" data-page="${i}">${i}</a>`;
+                pagination.insertBefore(pageItem, pagination.lastElementChild);
+            }
+            
+            // Hide pagination if only 1 page or no items
+            if (filteredPages <= 1 || visibleItems.length === 0) {
+                pagination.style.display = 'none';
+            } else {
+                pagination.style.display = 'flex';
+            }
+        }
+        
+        // Get currently visible items based on search and category
+        function getVisibleItems() {
+            return Array.from(featureItems).filter(item => {
+                const matchesSearch = currentSearchTerm === '' || 
+                    item.querySelector('.f-title').textContent.toLowerCase().includes(currentSearchTerm) ||
+                    item.querySelector('.f-text').textContent.toLowerCase().includes(currentSearchTerm) ||
+                    item.getAttribute('data-category').includes(currentSearchTerm);
+                
+                const matchesCategory = currentCategory === 'all' || 
+                    item.getAttribute('data-category') === currentCategory;
+                
+                return matchesSearch && matchesCategory;
+            });
+        }
+        
+        // Update page info display
+        function updatePageInfo(pageNumber) {
+            const visibleItems = getVisibleItems();
+            const start = ((pageNumber - 1) * itemsPerPage) + 1;
+            const end = Math.min(pageNumber * itemsPerPage, visibleItems.length);
+            
+            if (visibleItems.length === 0) {
+                pageInfo.textContent = 'No initiatives found';
+            } else {
+                pageInfo.textContent = `Showing initiatives ${start}-${end} of ${visibleItems.length}`;
+            }
+        }
+        
+        // Show items for specific page
+        function showPage(pageNumber) {
+            currentPage = pageNumber;
+            const visibleItems = getVisibleItems();
+            const startIndex = (pageNumber - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            
+            // Hide all items first
+            featureItems.forEach(item => {
+                item.style.display = 'none';
+            });
+            
+            // Show no results message if no items
+            if (visibleItems.length === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+                
+                // Show items for current page
+                for (let i = startIndex; i < Math.min(endIndex, visibleItems.length); i++) {
+                    visibleItems[i].style.display = 'block';
+                }
+            }
+            
+            // Update pagination
+            const pageItems = pagination.querySelectorAll('.page-item');
+            pageItems.forEach(item => {
+                item.classList.remove('active');
+                const pageLink = item.querySelector('.page-link');
+                if (pageLink && pageLink.dataset.page == pageNumber) {
+                    item.classList.add('active');
+                }
+            });
+            
+            updatePageInfo(pageNumber);
+        }
+        
+        // Update search results display
+        function updateSearchDisplay(searchTerm) {
+            if (searchTerm.trim() === '') {
+                searchResultsInfo.classList.remove('show');
+                currentSearchTerm = '';
+            } else {
+                const visibleItems = getVisibleItems();
+                searchResultsCount.textContent = `${visibleItems.length} result${visibleItems.length !== 1 ? 's' : ''} found`;
+                searchQuery.textContent = searchTerm;
+                searchResultsInfo.classList.add('show');
+                currentSearchTerm = searchTerm.toLowerCase();
+            }
+            
+            // Reset to first page when searching
+            initPagination();
+            showPage(1);
+        }
+        
+        // Category filter
+        statCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.dataset.category;
+                
+                // Update active state
+                statCards.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                
+                currentCategory = category;
+                initPagination();
+                showPage(1);
+                
+                // Reset search
+                document.getElementById('featureSearch').value = '';
+                updateSearchDisplay('');
+            });
+        });
+        
+        // Pagination click handler
+        pagination.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            if (e.target.classList.contains('page-link')) {
+                const targetPage = e.target.dataset.page;
+                const activePage = pagination.querySelector('.page-item.active .page-link');
+                
+                if (!activePage) {
+                    showPage(1);
+                    return;
+                }
+                
+                const currentActivePage = parseInt(activePage.dataset.page);
+                
+                if (targetPage === 'next') {
+                    const visibleItems = getVisibleItems();
+                    const totalVisiblePages = Math.ceil(visibleItems.length / itemsPerPage);
+                    const nextPage = currentActivePage < totalVisiblePages ? currentActivePage + 1 : totalVisiblePages;
+                    showPage(nextPage);
+                } else if (targetPage === 'prev') {
+                    const prevPage = currentActivePage > 1 ? currentActivePage - 1 : 1;
+                    showPage(prevPage);
+                } else {
+                    showPage(parseInt(targetPage));
+                }
+            }
+        });
+        
+        // Search functionality - searches ALL items
+        const searchInput = document.getElementById('featureSearch');
+        const clearButton = document.getElementById('clearSearch');
+        
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.trim();
+            updateSearchDisplay(searchTerm);
+        });
+        
+        // Clear search function
+        clearButton.addEventListener('click', function() {
+            searchInput.value = '';
+            updateSearchDisplay('');
+        });
+        
+        // Clear search results
+        clearSearchResults.addEventListener('click', function() {
+            searchInput.value = '';
+            updateSearchDisplay('');
+        });
+        
+        // Initialize
+        initPagination();
+        showPage(1);
+    });
+</script>
+
+{% endblock %}

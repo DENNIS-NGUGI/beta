@@ -1,0 +1,154 @@
+{% extends "layout/base.html" %}
+{% block pillars  %}active{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- Services Section -->
+<section id="services" class="services section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Bottom- Up Economic Transformation Agenda 
+            (BETA) Pillars</h2>
+          <p>Check Our Beta Pillars</p>
+        </div><!-- End Section Title -->
+  
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+  
+          <!-- Services Grid -->
+          <div class="row gy-5">
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+              <div class="service-card">
+                <div class="service-number">01</div>
+                <div class="service-icon-wrapper">
+                  <div class="service-icon">
+                    <i class="bi bi-laptop"></i>
+                  </div>
+                </div>
+                <div class="service-content">
+                  <h4>Agriculture</h4>
+                  <p> Fertiliser Subsidy Programme, Ten Value Chains: Tea, Cotton, Textile & Apparel, 
+                    Maize, Rice, Edible Oil, Sugarcane, Pyrethrum, Coffee, Dairy and Leather.</p>
+                  <div class="service-pricing">
+                    <a href="{% url 'agriculture' %}" class="service-btn">
+                      <span>Learn More</span>
+                      <i class="bi bi-arrow-right"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-card">
+                  <div class="service-number">02</div>
+                  <div class="service-icon-wrapper">
+                    <div class="service-icon">
+                      <i class="bi bi-phone"></i>
+                    </div>
+                  </div>
+                  <div class="service-content">
+                    <h4>MSME Economy</h4>
+                    <p> Financial Inclusion & Access to Affordable 
+                      Credit, Access to Markets, Supportive 
+                      Commercial Infrastructure.</p>
+                    <div class="service-pricing">
+                      <a href="{% url 'msme' %}" class="service-btn">
+                        <span>Learn More</span>
+                        <i class="bi bi-arrow-right"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+              <div class="service-card">
+                <div class="service-number">03</div>
+                <div class="service-icon-wrapper">
+                  <div class="service-icon">
+                    <i class="bi bi-phone"></i>
+                  </div>
+                </div>
+                <div class="service-content">
+                  <h4>Affordable Housing</h4>
+                  <p>Provision of 200,000 Affordable Housing Units Annually, Create 
+                    New Jobs in Construction, Supply of Materials and Jua Kali 
+                    Sector,Grow Number of Mortgages From 30,000 to 1,000,000 by 
+                    Enabling Low-Cost Mortgages Under Ksh. 10,000 Per Month.
+                    </p>
+                  <div class="service-pricing">
+                    <a href="#" class="service-btn">
+                      <span>Learn More</span>
+                      <i class="bi bi-arrow-right"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+              <div class="service-card">
+                <div class="service-number">04</div>
+                <div class="service-icon-wrapper">
+                  <div class="service-icon">
+                    <i class="bi bi-search"></i>
+                  </div>
+                </div>
+                <div class="service-content">
+                  <h4>Universal Health Coverage</h4>
+                  <p>Sustainable Health Financing, Enhancing Primary 
+                    Healthcare, Health Information System, Supply Chain of 
+                    Health Products & Technologies, Human Resources for 
+                    Health and Health Infrastructure.</p>
+                  <div class="service-pricing">
+                    <a href="{% url 'uhc' %}" class="service-btn">
+                      <span>Learn More</span>
+                      <i class="bi bi-arrow-right"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+              <div class="service-card">
+                <div class="service-number">05</div>
+                <div class="service-icon-wrapper">
+                  <div class="service-icon">
+                    <i class="bi bi-shield-lock"></i>
+                  </div>
+                </div>
+                <div class="service-content">
+                  <h4>Digital Superhighway 
+                    & Creative Economy</h4>
+                  <p> Universal 
+                    Construction 
+                    Broadband connectivity, 
+                    of 
+                    Digital 
+                    Hubs, 
+                    Digitalization of GoK services,  Digital 
+                    Training and Digital Jobs through 
+                    creative economies.</p>
+                  <div class="service-pricing">
+
+                    <a href="#" class="service-btn">
+                      <span>Learn More</span>
+                      <i class="bi bi-arrow-right"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+
+          </div>
+  
+        </div>
+  
+</section>
+<!-- /Services Section -->
+
+{% endblock %}
