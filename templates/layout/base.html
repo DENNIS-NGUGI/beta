@@ -55,7 +55,16 @@
               <ul>
                 <li><a href="{% url 'dashboard' %}" class="{% block dashboard %}{% endblock %}">Home</a></li>
                 <li><a href="{% url 'about' %}" class="{% block about %}{% endblock %}">About BETA</a></li>
-                <li><a href="{% url 'pillars' %}" class="{% block pillars %}{% endblock %}">BETA Pillars</a></li>
+                <li class="dropdown"><a href="#" class="{% block pillars %}{% endblock %}"><span>BETA Pillars</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    <ul>
+                      <li><a href="{% url 'agriculture' %}" style="color: #d45254;">Agriculture</a></li>
+                      <li><a href="{% url 'msme' %}" style="color: #d45254;">MSME Economy</a></li>
+                      <li><a href="{% url 'housing' %}" style="color: #d45254;">Affordable Housing</a></li>
+                      <li><a href="{% url 'uhc' %}" style="color: #d45254;">Universal Health Coverage</a></li>
+                      <li><a href="{% url 'digital' %}" style="color: #d45254;">Digital Superhighway & Creative Economy</a></li>
+                      
+                    </ul>                    
+                </li>
                 <li><a href="{% url 'projects' %}" class="{% block projects %}{% endblock %}">Priority Projects</a></li>
                 <li><a href="{% url 'login' %}"><button class="btn btn-danger">Login <i class="bi bi-arrow-right-short"></i> </button></a></li>
               </ul>
