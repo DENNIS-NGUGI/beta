@@ -68,6 +68,8 @@ def uhc(request):
         "chart_labels": chart_labels,
         "diabetes_data": diabetes_data,
         "hypertension_data": hypertension_data,
+        "diabetes_total": sum(diabetes_data),
+        "hypertension_total": sum(hypertension_data)
     })
 
 def housing(request):
