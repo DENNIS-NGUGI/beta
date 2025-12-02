@@ -60,33 +60,48 @@
                       </div><!-- End Section Title -->
     <!-- Key Stats Row -->
     <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-label">Total Citizens Registered</div>
-                <div class="stat-value">{{ total_sha|intcomma }}</div>
-                <div class="stat-label">Out of a Target Population of </div>
-                <div class="stat-value">{{ total_population|intcomma }}</div>
-                <div class="stat-label">Percentage Registered ({{ total_percentage }}%)</div>
+        <div class="col-md-6">
+            <div class="stat-card enhanced-stat-card text-center p-3">
+                <div class="stat-section">
+                    <div class="stat-label">Total Citizens Registered</div>
+                    <div class="stat-value">{{ total_sha|intcomma }}</div>
+                </div>
+
+                <div class="stat-divider"></div>
+
+                <div class="stat-section">
+                    <div class="stat-label">Target Population</div>
+                    <div class="stat-value">{{ total_population|intcomma }}</div>
+                </div>
+
+                <div class="stat-divider"></div>
+
+                <div class="stat-section">
+                    <div class="stat-label">Registration Rate</div>
+                    <div class="stat-value">{{ total_percentage }}%</div>
+                </div>
             </div>
+
         </div>
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-value">8.57M</div>
-                <div class="stat-label">Households Registered</div>
+        <div class="col-md-6">
+            <div class="row g-3">
+                <!-- Diabetes Card -->
+                <div class="col-12">
+                    <div class="stat-card enhanced-stat-card text-center p-3">
+                        <div class="stat-value">{{ diabetes_total|intcomma }}</div>
+                        <div class="stat-label">Diabetes Screenings</div>
+                    </div>
+                </div>
+
+                <!-- Hypertension Card -->
+                <div class="col-12">
+                    <div class="stat-card enhanced-stat-card text-center p-3">
+                        <div class="stat-value">{{ hypertension_total|intcomma }}</div>
+                        <div class="stat-label">Hypertension Screenings</div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-value">{{ diabetes_total|intcomma }}</div>
-                <div class="stat-label">Diabetes Screenings</div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-value">{{ hypertension_total|intcomma }}</div>
-                <div class="stat-label">Hypertension Screenings</div>
-            </div>
-        </div>
+        </div>        
     </div>
 
     <!-- Main Charts Row -->
