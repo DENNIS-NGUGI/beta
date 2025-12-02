@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import County, HealthRecord
 from django.db.models import F, FloatField, ExpressionWrapper, Sum
+from datetime import datetime
 
 def dashboard(request):
     return render(request, 'pages/index.html')
@@ -46,19 +47,21 @@ def uhc(request):
     total_population = totals['total_population'] or 1
     total_percentage = round(total_sha * 100.0 / total_population, 2)
     
-    monthly_totals = (
+    raw_monthly  = (
         HealthRecord.objects
         .values("month_and_year")
         .annotate(
             total_diabetes=Sum("diabetes_cases"),
             total_hypertension=Sum("hypertension_cases"),
         )
-        .order_by("month_and_year")
     )
-
-    chart_labels = [entry["month_and_year"] for entry in monthly_totals]
-    diabetes_data = [entry["total_diabetes"] for entry in monthly_totals]
-    hypertension_data = [entry["total_hypertension"] for entry in monthly_totals]
+    raw_monthly = list(raw_monthly)
+    def parse_month_year(text):
+        return datetime.strptime(text, "%B %Y")
+    raw_monthly.sort(key=lambda x: parse_month_year(x["month_and_year"]))
+    chart_labels = [entry["month_and_year"] for entry in raw_monthly]
+    diabetes_data = [entry["total_diabetes"] for entry in raw_monthly]
+    hypertension_data = [entry["total_hypertension"] for entry in raw_monthly]
 
     return render(request, "pages/uhc.html", {
         "counties": leaflet_data,
