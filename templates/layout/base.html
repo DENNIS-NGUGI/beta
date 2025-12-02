@@ -25,6 +25,10 @@
   <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 
   <!-- Main CSS File -->
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
@@ -66,7 +70,7 @@
                     </ul>                    
                 </li>
                 <li><a href="{% url 'projects' %}" class="{% block projects %}{% endblock %}">Priority Projects</a></li>
-                <li><a href="{% url 'login' %}"><button class="btn btn-danger">Login <i class="bi bi-arrow-right-short"></i> </button></a></li>
+                <li><a href="/admin"><button class="btn btn-danger">Login <i class="bi bi-arrow-right-short"></i> </button></a></li>
               </ul>
               <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
@@ -123,9 +127,14 @@
   <script src="{% static 'vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
   <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
   <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
   <!-- Main JS File -->
   <script src="{% static 'js/main.js' %}"></script>
+  {% block extrajs %}{% endblock %}
 
 </body>
 

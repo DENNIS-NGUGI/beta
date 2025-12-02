@@ -10,3 +10,7 @@ media/
 *.log
 .idea/
 .vscode/
+env/
+Diabetes.xlsx
+Kenya_County_SHA.xlsx
+scripts.py
