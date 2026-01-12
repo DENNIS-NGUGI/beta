@@ -2,25 +2,33 @@ from django.shortcuts import render
 from .models import County, HealthRecord
 from django.db.models import F, FloatField, ExpressionWrapper, Sum
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def dashboard(request):
     return render(request, 'pages/index.html')
 
+@login_required
 def agriculture(request):
     return render(request, 'pages/agriculture.html')
 
+@login_required
 def about(request):
     return render(request, 'pages/about.html')
 
+@login_required
 def msme(request):
     return render(request, 'pages/msme.html')
 
+@login_required
 def pillars(request):
     return render(request, 'pages/pillars.html')
 
+@login_required
 def projects(request):
     return render(request, 'pages/projects.html')
 
+@login_required
 def uhc(request):
     counties = County.objects.annotate(
         sha_percentage=ExpressionWrapper(
@@ -75,11 +83,10 @@ def uhc(request):
         "hypertension_total": sum(hypertension_data)
     })
 
+@login_required
 def housing(request):
     return render(request, 'pages/housing.html')
 
+@login_required
 def digital(request):
     return render(request, 'pages/digital.html')
-
-def login(request):
-    return render(request, 'bauth/login.html')

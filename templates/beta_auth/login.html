@@ -328,12 +328,27 @@
         <div class="login-card">
             <!-- Login Header -->
             <div class="login-header" data-aos="fade-up" data-aos-delay="100">
-                <img src="{% static 'img/logo.png' %}" alt="Beta Logo" width="100%">  
-                <!-- Divider -->
-                <div class="divider" data-aos="fade-up" data-aos-delay="120"><span></span>
-                </div>        
-                <h1>BETA Dashboard Login</h1>
+                <img src="{% static 'img/logo.png' %}" alt="Beta Logo" width="100%">
             </div>
+
+            <!-- Django Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'success' %}success-message{% else %}error-message{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Form Errors -->
+            {% if form.errors %}
+                <div class="error-message">
+                    {{ form.non_field_errors }}
+                    {{ form.old_password.errors }}
+                    {{ form.new_password1.errors }}
+                    {{ form.new_password2.errors }}
+                </div>
+            {% endif %}
 
             <!-- Error Message (hidden by default) -->
             <div class="error-message" style="display: none;" id="errorMessage">
@@ -342,28 +357,32 @@
             </div>
 
             <!-- Login Form -->
-            <form id="loginForm" data-aos="fade-up" data-aos-delay="150">
+            <form method="POST" id="loginForm" data-aos="fade-up" data-aos-delay="150">
+                {% csrf_token %}
+
                 <div class="form-group">
-                    <label class="form-label" for="email">Email Address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+                    <label class="form-label" for="{{ form.email.id_for_label }}">
+                        {{ form.email.label }}
+                    </label>
+                    {{ form.email }}
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="password">Password</label>
+                    <label class="form-label" for="{{ form.password.id_for_label }}">
+                        {{ form.password.label }}
+                    </label>
                     <div class="password-input">
-                        <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                        {{ form.password }}
                         <button type="button" class="password-toggle" id="togglePassword">
                             <i class="bi bi-eye"></i>
                         </button>
                     </div>
                 </div>
 
-                <div class="remember-forgot">
-                    <div class="remember-me">
-                        <input type="checkbox" id="remember">
-                        <label for="remember">Remember me</label>
-                    </div>
-                    <a href="#" class="forgot-password">Forgot password?</a>
+                <div class="text-end mb-2">
+                    <a href="{% url 'forgot_password' %}" class="forgot-password">
+                        Forgot password?
+                    </a>
                 </div>
 
                 <button type="submit" class="login-btn">
@@ -371,25 +390,20 @@
                     Sign In
                 </button>
             </form>
+
             <!-- Divider -->
             <div class="divider" data-aos="fade-up" data-aos-delay="200">
                 <span></span></div>
 
-            <a href="{% url 'dashboard' %}"> <button type="submit" class="homepage-btn btn-secondary">
-                <i class="bi bi-box-arrow-in-right"></i>
-                Go to homepage
-            </button></a>
-
         </div>
     </div>
 </section><!-- /Login Section -->
-
 <script>
     // Toggle password visibility
-    document.getElementById('togglePassword').addEventListener('click', function() {
-        const passwordInput = document.getElementById('password');
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('id_password');
         const icon = this.querySelector('i');
-        
+
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
             icon.classList.remove('bi-eye');
@@ -400,73 +414,9 @@
             icon.classList.add('bi-eye');
         }
     });
-
-    // Form submission
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const errorMessage = document.getElementById('errorMessage');
-        
-        // Simple validation
-        if (!email || !password) {
-            errorMessage.innerHTML = '<i class="bi bi-exclamation-triangle"></i><span>Please fill in all fields.</span>';
-            errorMessage.style.display = 'flex';
-            return;
-        }
-        
-        // For demo purposes - redirect to dashboard
-        // In a real application, you would validate credentials with backend
-        if (email === 'admin@beta.go.ke' && password === 'password') {
-            window.location.href = "{% url 'dashboard' %}";
-        } else {
-            // Simulate API call with timeout
-            setTimeout(() => {
-                errorMessage.innerHTML = '<i class="bi bi-exclamation-triangle"></i><span>Invalid email or password. Please try again.</span>';
-                errorMessage.style.display = 'flex';
-            }, 500);
-        }
-    });
-
-    // Demo login buttons
-    document.querySelectorAll('.social-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const provider = this.classList.contains('google') ? 'Google' : 'Microsoft';
-            const errorMessage = document.getElementById('errorMessage');
-            
-            errorMessage.innerHTML = `<i class="bi bi-info-circle"></i><span>${provider} login integration coming soon. Please use email login for now.</span>`;
-            errorMessage.style.display = 'flex';
-            errorMessage.style.backgroundColor = '#e3f2fd';
-            errorMessage.style.borderColor = '#bbdefb';
-            errorMessage.style.color = '#1565c0';
-        });
-    });
-
-    // Forgot password
-    document.querySelector('.forgot-password').addEventListener('click', function(e) {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const errorMessage = document.getElementById('errorMessage');
-        
-        if (!email) {
-            errorMessage.innerHTML = '<i class="bi bi-info-circle"></i><span>Please enter your email address to reset password.</span>';
-            errorMessage.style.display = 'flex';
-            errorMessage.style.backgroundColor = '#e3f2fd';
-            errorMessage.style.borderColor = '#bbdefb';
-            errorMessage.style.color = '#1565c0';
-            return;
-        }
-        
-        errorMessage.innerHTML = `<i class="bi bi-check-circle"></i><span>Password reset link sent to ${email}</span>`;
-        errorMessage.style.display = 'flex';
-        errorMessage.style.backgroundColor = '#e8f5e9';
-        errorMessage.style.borderColor = '#c8e6c9';
-        errorMessage.style.color = '#2e7d32';
-    });
 </script>
 
-    </body>
+</body>
 </html>
 
 
