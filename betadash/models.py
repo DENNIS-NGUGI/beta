@@ -75,4 +75,16 @@ class HealthRecord(models.Model):
     def __str__(self):
         return f"{self.county} - {self.month_and_year}"
 
-        
+
+class DSH(models.Model):
+    link = models.CharField(max_length=255)
+    overall_scope_m = models.DecimalField(max_digits=10, decimal_places=2)
+    lso_amount_ksh = models.DecimalField(max_digits=12, decimal_places=2)
+    open_trench_m = models.DecimalField(max_digits=10, decimal_places=2)
+    backfilled_m = models.DecimalField(max_digits=10, decimal_places=2)
+    fibre_blown_m = models.DecimalField(max_digits=10, decimal_places=2)
+    progress_percent = models.DecimalField(max_digits=5, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.link      

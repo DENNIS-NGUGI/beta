@@ -1,6 +1,6 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
-from .models import County, HealthRecord
+from .models import County, HealthRecord, DSH
 
 @admin.register(County)
 class CountyAdmin(ModelAdmin):
@@ -28,3 +28,7 @@ class HealthRecordAdmin(ModelAdmin):
         'County & Date': ('county', 'month_and_year'),
         'Health Statistics': ('diabetes_cases', 'hypertension_cases'),
     }
+
+@admin.register(DSH)
+class DSHAdmin(ModelAdmin):
+    pass

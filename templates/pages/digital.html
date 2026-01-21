@@ -1,4 +1,6 @@
 {% extends "layout/base.html" %}
+{% load humanize %}
+{% load percantage_filters %}
 {% load static %}
 {% block pillars  %}active{% endblock %}
 {% block content %}
@@ -58,33 +60,53 @@
             </div><!-- End Section Title -->
 
 
-    <!-- Key Stats Row -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-value">23,979</div>
-                <div class="stat-label">Fibre Connectivity (Km)</div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-value">1,563</div>
-                <div class="stat-label">Public Wi-Fi Hotspots</div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-value">182,568</div>
-                <div class="stat-label">Digital Jobs Created</div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-value">20,985</div>
-                <div class="stat-label">Govt Services Digitized</div>
+<div class="row mb-4">
+    <!-- Fibre Connectivity Card with Details -->
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-value">{{ total_fibre_connectivity_km|intcomma }}</div>
+            <div class="stat-label">Fibre Connectivity (Km)</div>
+
+            <!-- Sub-details -->
+            <div class="stat-details mt-2">
+                <div class="detail-item">
+                    <span class="detail-label">Open Trench:</span>
+                    <span class="detail-value">{{ total_open_trench_km|intcomma }} km</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Backfilled:</span>
+                    <span class="detail-value">{{ total_backfilled_km|intcomma }} km</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Fibre Blown:</span>
+                    <span class="detail-value">{{ total_fibre_blown_km|intcomma }} km</span>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Other cards -->
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-value">1,563</div>
+            <div class="stat-label">Public Wi-Fi Hotspots</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-value">182,568</div>
+            <div class="stat-label">Digital Jobs Created</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-value">20,985</div>
+            <div class="stat-label">Govt Services Digitized</div>
+        </div>
+    </div>
+</div>
+
+
 
     <!-- Main Charts Row -->
     <div class="row">
@@ -263,6 +285,48 @@
             </div>
         </div>
     </div>
+
+    <!-- DSH Links Data Table -->
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Digital SuperHighway Backbone</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Link</th>
+                                <th>Total Scope (Km)</th>
+                                <th>Open Trench (Km)</th>
+                                <th>Backfilled (Km)</th>
+                                <th>Fibre Blown (Km)</th>
+                                <th>Progress (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for link in links %}
+                            <tr>
+                                <td>{{ link.link }}</td>
+                                <td>{{ link.overall_scope_km|intcomma }}</td>
+                                <td>{{ link.open_trench_km|intcomma }}</td>
+                                <td>{{ link.backfilled_km|intcomma }}</td>
+                                <td>{{ link.fibre_blown_km|intcomma }}</td>
+                                <td>{{ link.fibre_blown_km|percentage:link.overall_scope_km }} %</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center">No links found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>
 
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import County, HealthRecord
+from .models import County, HealthRecord, DSH
 from django.db.models import F, FloatField, ExpressionWrapper, Sum
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -89,4 +89,29 @@ def housing(request):
 
 @login_required
 def digital(request):
-    return render(request, 'pages/digital.html')
+    links = DSH.objects.all()
+
+    for link in links:
+        link.overall_scope_km = round(link.overall_scope_m / 1000, 2)
+        link.open_trench_km = round(link.open_trench_m / 1000, 2)
+        link.backfilled_km = round(link.backfilled_m / 1000, 2)
+        link.fibre_blown_km = round(link.fibre_blown_m / 1000, 2)
+    
+    total_open_trench_m = links.aggregate(Sum('open_trench_m'))['open_trench_m__sum'] or 0
+    total_backfilled_m = links.aggregate(Sum('backfilled_m'))['backfilled_m__sum'] or 0
+    total_fibre_blown_m = links.aggregate(Sum('fibre_blown_m'))['fibre_blown_m__sum'] or 0
+    
+    total_open_trench_km = round(total_open_trench_m / 1000, 2)
+    total_backfilled_km = round(total_backfilled_m / 1000, 2)
+    total_fibre_blown_km = round(total_fibre_blown_m / 1000, 2)
+
+    total_fibre_connectivity_km = round(links.aggregate(Sum('overall_scope_m'))['overall_scope_m__sum'] / 1000, 2) if links.exists() else 0
+
+    context = {
+        'links': links,
+        'total_fibre_connectivity_km': total_fibre_connectivity_km,
+        'total_open_trench_km': total_open_trench_km,
+        'total_backfilled_km': total_backfilled_km,
+        'total_fibre_blown_km': total_fibre_blown_km,
+    }
+    return render(request, 'pages/digital.html', context)
