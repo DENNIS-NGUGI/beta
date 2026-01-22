@@ -115,3 +115,7 @@ def digital(request):
         'total_fibre_blown_km': total_fibre_blown_km,
     }
     return render(request, 'pages/digital.html', context)
+
+@login_required
+def power_bi(request):
+    return render(request, 'pages/bi.html')

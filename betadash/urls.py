@@ -27,6 +27,7 @@ urlpatterns = [
     path('pillars/uhc/', views.uhc, name='uhc'),
     path('pillars/housing/', views.housing, name='housing'),
     path('pillars/digital/', views.digital, name='digital'),
+    path('power-bi/', views.power_bi, name='power_bi')
 
 ]
     
