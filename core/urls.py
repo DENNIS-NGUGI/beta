@@ -20,5 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('db2duKpzJrZUaUxlODHnXpMEEJ_5cs7rtK4gb9L_0LI/', admin.site.urls),
     path('', include('betadash.urls')),
-    path('beta/auth/', include('beta_auth.urls'))
+    path('beta/auth/', include('beta_auth.urls')),
+    path('dsh/', include('dsh.urls'))
 ]

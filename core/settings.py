@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'betadash',
     'beta_auth',
-    'audit'
+    'audit',
+    'dsh'
 ]
 
 MIDDLEWARE = [

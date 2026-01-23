@@ -1,0 +1,409 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block pillars %}active{% endblock %}
+
+{% block content %}
+
+
+
+{% block extracss %}
+<style>
+    .dashboard-title {
+        font-weight: 700;
+        color: #1f2937;
+    }
+    .subtitle {
+        color: #6b7280;
+        font-size: 0.95rem;
+    }
+    .kpi-card {
+        border-radius: 14px;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: #fff;
+        box-shadow: 0 10px 20px rgba(0,0,0,.15);
+        text-align: center;
+    }
+    .kpi-value {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+    .kpi-label {
+        font-size: 0.85rem;
+        opacity: 0.85;
+    }
+    .card {
+        border: none;
+        border-radius: 14px;
+        box-shadow: 0 6px 15px rgba(0,0,0,.08);
+    }
+    .card-header {
+        font-weight: 600;
+        background: #f9fafb;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    .chart-box {
+        height: 320px;
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% include "layout/pillar-nav.html" %}
+
+<div class="container-fluid mt-4">
+
+    <!-- TITLE -->
+    <div class="mb-4">
+        <h3 class="dashboard-title">Digital Superhighway & Creative Economy</h3>
+        <p class="subtitle">BETA – Real-time analytics and progress tracking</p>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <select id="yearFilter" class="form-select select2">
+                <option value="">All Years</option>
+                {% for y in years %}
+                    <option value="{{ y }}">{{ y }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select id="countyFilter" class="form-select select2">
+                <option value="">All Counties</option>
+                {% for county in counties %}
+                <option value="{{ county.id }}">{{ county.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- KPI ROW -->
+    <div class="row mb-4 g-3"> <!-- g-3 adds horizontal spacing -->
+        <!-- Fibre KM -->
+        <div class="col">
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiFibreKm">0</div>
+                <div class="kpi-label">Fibre Laid (KM)</div>
+                <div class="kpi-target">Target: <span id="kpiFibreTarget">0</span></div>
+                <div class="progress mt-1" style="height:6px; border-radius:3px;">
+                    <div id="kpiFibreProgress" class="progress-bar bg-gradient-primary" role="progressbar" style="width:0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Public Wi-Fi Hotspots -->
+        <div class="col">
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiWifi">0</div>
+                <div class="kpi-label">Public Wi-Fi Hotspots</div>
+                <div class="kpi-target">Target: <span id="kpiWifiTarget">0</span></div>
+                <div class="progress mt-1" style="height:6px; border-radius:3px;">
+                    <div id="kpiWifiProgress" class="progress-bar bg-gradient-info" role="progressbar" style="width:0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ICT Hubs -->
+        <div class="col">
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiIctHubs">0</div>
+                <div class="kpi-label">ICT Digital Hubs</div>
+                <div class="kpi-target">Target: <span id="kpiIctTarget">0</span></div>
+                <div class="progress mt-1" style="height:6px; border-radius:3px;">
+                    <div id="kpiIctProgress" class="progress-bar bg-gradient-success" role="progressbar" style="width:0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Youth Trained -->
+        <div class="col">
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiTrained">0</div>
+                <div class="kpi-label">Youth Trained</div>
+                <div class="kpi-target">Target: <span id="kpiTrainedTarget">0</span></div>
+                <div class="progress mt-1" style="height:6px; border-radius:3px;">
+                    <div id="kpiTrainedProgress" class="progress-bar bg-gradient-warning" role="progressbar" style="width:0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Studio Recordings -->
+        <div class="col">
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiRecordings">0</div>
+                <div class="kpi-label">Studio Recordings</div>
+                <div class="kpi-target">Target: <span id="kpiRecordingsTarget">0</span></div>
+                <div class="progress mt-1" style="height:6px; border-radius:3px;">
+                    <div id="kpiRecordingsProgress" class="progress-bar bg-gradient-danger" role="progressbar" style="width:0%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHARTS ROW -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Fibre Deployment Trend</div>
+                <div class="card-body chart-box">
+                    <canvas id="fibreTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Public Wi-Fi Status</div>
+                <div class="card-body chart-box">
+                    <canvas id="wifiStatusChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECOND ROW -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Digital Literacy Outcomes</div>
+                <div class="card-body chart-box">
+                    <canvas id="literacyChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Studio Mashinani Production</div>
+                <div class="card-body chart-box">
+                    <canvas id="studioChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THIRD ROW: ICT Hubs -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">ICT Digital Hub Status</div>
+                <div class="card-body chart-box">
+                    <canvas id="ictHubChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">ICT Digital Hubs by County</div>
+                <div class="card-body table-responsive" style="max-height:320px; overflow:auto;">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr id="ictHubTableHeader">
+                                <th>County</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ictHubTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extrajs %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+let fibreChart, wifiChart, literacyChart, studioChart, ictChart;
+
+async function loadDashboard() {
+    const year = document.getElementById("yearFilter").value;
+    const county = document.getElementById("countyFilter").value;
+
+    const params = new URLSearchParams();
+    if(year) params.append("year", year);
+    if(county) params.append("county", county);
+
+    // ===== Overview KPIs =====
+    const overview = await fetch(`/dsh/api/dashboard-overview/?${params}`)
+        .then(r => r.json());
+
+    // Define programme targets
+    const targets = {
+        "fibre_km": 100000,
+        "wifi_hotspots": 25000,
+        "ict_hubs": 1450,
+        "trained_youth": 1250000,
+        "studio_recordings": 2000
+    };
+
+    // Utility to update KPI value, target, and progress
+    function updateKPI(valueId, targetId, progressId, valueKey) {
+        const val = overview[valueKey] || 0;
+        const target = targets[valueKey] || 0;
+        const percent = target ? Math.min((val / target * 100), 100) : 0;
+
+        document.getElementById(valueId).innerText = val.toLocaleString();
+        document.getElementById(targetId).innerText = target.toLocaleString();
+        const progressEl = document.getElementById(progressId);
+        progressEl.style.width = percent + "%";
+        progressEl.setAttribute("aria-valuenow", percent);
+    }
+
+    // Update all KPIs
+    updateKPI("kpiFibreKm", "kpiFibreTarget", "kpiFibreProgress", "fibre_km");
+    updateKPI("kpiWifi", "kpiWifiTarget", "kpiWifiProgress", "wifi_hotspots");
+    updateKPI("kpiIctHubs", "kpiIctTarget", "kpiIctProgress", "ict_hubs");
+    updateKPI("kpiTrained", "kpiTrainedTarget", "kpiTrainedProgress", "trained_youth");
+    updateKPI("kpiRecordings", "kpiRecordingsTarget", "kpiRecordingsProgress", "studio_recordings");
+
+    // ===== Fibre Deployment Chart =====
+    const fibreData = await fetch(`/dsh/api/fibre/?${params}`).then(r => r.json());
+    const fibreLabels = fibreData.trend.map(t => t.period__year);
+    const fibreValues = fibreData.trend.map(t => t.km);
+
+    if(fibreChart) fibreChart.destroy();
+    fibreChart = new Chart(document.getElementById("fibreTrendChart"), {
+        type: "line",
+        data: {
+            labels: fibreLabels,
+            datasets: [{
+                label: "KM Added",
+                data: fibreValues,
+                borderColor: "#2a5298",
+                backgroundColor: "rgba(42,82,152,0.2)",
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: { responsive:true }
+    });
+
+    // ===== Public Wi-Fi Chart =====
+    const wifiData = await fetch(`/dsh/api/wifi/?${params}`).then(r => r.json());
+    const wifiLabels = wifiData.by_status.map(s => s.status);
+    const wifiValues = wifiData.by_status.map(s => s.count);
+
+    if(wifiChart) wifiChart.destroy();
+    wifiChart = new Chart(document.getElementById("wifiStatusChart"), {
+        type: "doughnut",
+        data: {
+            labels: wifiLabels,
+            datasets: [{
+                data: wifiValues,
+                backgroundColor: ["#2a5298","#54a0ff","#ffb74d","#ff5252"]
+            }]
+        },
+        options: { responsive:true }
+    });
+
+    // ===== Digital Literacy Chart =====
+    const literacyData = await fetch(`/dsh/api/literacy/?${params}`).then(r => r.json());
+    const literacyLabels = ["Digital Literacy"];
+    const literacyTrained = [literacyData.trained];
+    const literacyEmployed = [literacyData.employed];
+
+    if(literacyChart) literacyChart.destroy();
+    literacyChart = new Chart(document.getElementById("literacyChart"), {
+        type: "bar",
+        data: {
+            labels: literacyLabels,
+            datasets: [
+                { label: "Trained", data: literacyTrained, backgroundColor:"#2a5298" },
+                { label: "Employed", data: literacyEmployed, backgroundColor:"#54a0ff" }
+            ]
+        },
+        options: { responsive:true, scales:{ y:{ beginAtZero:true } } }
+    });
+
+    // ===== Studio Mashinani Chart =====
+    const studioData = await fetch(`/dsh/api/studio-production/?${params}`).then(r => r.json());
+    const studioLabels = studioData.by_studio.map(s => s.studio__name);
+    const studioValues = studioData.by_studio.map(s => s.total_recordings);
+
+    if(studioChart) studioChart.destroy();
+    studioChart = new Chart(document.getElementById("studioChart"), {
+        type: "bar",
+        data: {
+            labels: studioLabels,
+            datasets: [{ label:"Recordings Produced", data: studioValues, backgroundColor:"#2a5298" }]
+        },
+        options: { responsive:true, scales:{ y:{ beginAtZero:true } } }
+    });
+
+    // ===== ICT Hubs Chart and Table =====
+    const ictData = await fetch(`/dsh/api/ict-hub/?${params}`).then(r => r.json());
+
+    // Chart
+    const ictLabels = ictData.by_status.map(s => s.status);
+    const ictValues = ictData.by_status.map(s => s.total);
+
+    if(ictChart) ictChart.destroy();
+    ictChart = new Chart(document.getElementById("ictHubChart"), {
+        type:"pie",
+        data:{
+            labels:ictLabels,
+            datasets:[{
+                data:ictValues,
+                backgroundColor:["#4ade80","#facc15","#54a0ff","#f87171"]
+            }]
+        },
+        options:{ responsive:true }
+    });
+
+    // Table
+    const tableHeader = document.getElementById("ictHubTableHeader");
+    tableHeader.innerHTML = "<th>County</th>";
+    ictData.statuses.forEach(status => {
+        tableHeader.innerHTML += `<th>${status}</th>`;
+    });
+
+    const tableBody = document.getElementById("ictHubTableBody");
+    tableBody.innerHTML = "";
+    ictData.by_county.forEach(item => {
+        let rowHtml = `<td>${item.county}</td>`;
+        ictData.statuses.forEach(status => {
+            rowHtml += `<td>${item[status]}</td>`;
+        });
+        const row = document.createElement("tr");
+        row.innerHTML = rowHtml;
+        tableBody.appendChild(row);
+    });
+
+}
+
+// Event listeners for filters
+document.getElementById("yearFilter").addEventListener("change", loadDashboard);
+document.getElementById("countyFilter").addEventListener("change", loadDashboard);
+
+// Initial load
+loadDashboard();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Initialize Select2
+    $('.select2').select2({
+        width: '100%',
+        placeholder: "Select an option",
+        allowClear: true
+    });
+
+    // Event listeners for filters
+    $('#yearFilter, #countyFilter').on('change', function() {
+        loadDashboard();  // your existing function
+    });
+
+    // Initial load
+    loadDashboard();
+});
+</script>
+
+{% endblock %}
+
+

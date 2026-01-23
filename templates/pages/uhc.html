@@ -1,444 +1,50 @@
 {% extends "layout/base.html" %}
-{% load static %}
 {% block pillars  %}active{% endblock %}
-{% block content %}
-{% load humanize %}
+{% block extracss %}
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-y: auto;
+  }
 
+  .content-wrapper,
+  .container,
+  .container-fluid {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>      
-      .card {
-          border-radius: 10px;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-          margin-bottom: 1.5rem;
-          border: none;
-      }
-      .card-header {
-          background-color: #f8f9fa;
-          border-bottom: 1px solid #e3e6f0;
-          font-weight: 600;
-      }
-      .chart-container {
-          position: relative;
-          height: 300px;
-          margin-bottom: 1rem;
-      }
-      .priority-badge {
-          background-color: #2a5298;
-          color: white;
-          padding: 0.25rem 0.5rem;
-          border-radius: 0.25rem;
-          font-size: 0.75rem;
-      }
-      .stat-card {
-          text-align: center;
-          padding: 1rem;
-          border-radius: 8px;
-          background-color: #f8f9fa;
-      }
-      .stat-value {
-          font-size: 1.8rem;
-          font-weight: bold;
-          color: #2a5298;
-      }
-      .stat-label {
-          font-size: 0.9rem;
-          color: #6c757d;
-      }
+  .powerbi-container {
+    position: relative;
+    top: 0;
+    width: 100%;
+    min-height: 90vh;
+    overflow: visible;
+  }
 
-  </style>
-
-{%  include 'layout/pillar-nav.html' %}
-   
-<!-- Universal Health Coverage Content -->
-<div class="container">
-                    <!-- Section Title -->
-                    <div class="container section-title" data-aos="fade-up">
-                        <h2>BETA - Universal Health Coverage Pillar</h2>
-                        <p>Bottom- Up Economic Transformation Agenda 
-                            (BETA)</p>
-                      </div><!-- End Section Title -->
-    <!-- Key Stats Row -->
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="stat-card enhanced-stat-card text-center p-3">
-                <div class="stat-section">
-                    <div class="stat-label">Total Citizens Registered</div>
-                    <div class="stat-value">{{ total_sha|intcomma }}</div>
-                </div>
-
-                <div class="stat-divider"></div>
-
-                <div class="stat-section">
-                    <div class="stat-label">Target Population</div>
-                    <div class="stat-value">{{ total_population|intcomma }}</div>
-                </div>
-
-                <div class="stat-divider"></div>
-
-                <div class="stat-section">
-                    <div class="stat-label">Registration Rate</div>
-                    <div class="stat-value">{{ total_percentage }}%</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-md-6">
-            <div class="row g-3">
-                <!-- Diabetes Card -->
-                <div class="col-12">
-                    <div class="stat-card enhanced-stat-card text-center p-3">
-                        <div class="stat-value">{{ diabetes_total|intcomma }}</div>
-                        <div class="stat-label">Diabetes Screenings</div>
-                    </div>
-                </div>
-
-                <!-- Hypertension Card -->
-                <div class="col-12">
-                    <div class="stat-card enhanced-stat-card text-center p-3">
-                        <div class="stat-value">{{ hypertension_total|intcomma }}</div>
-                        <div class="stat-label">Hypertension Screenings</div>
-                    </div>
-                </div>
-            </div>
-        </div>        
-    </div>
-
-    <!-- Main Charts Row -->
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <span>SHA Citizen Registrations per County  Map</span>
-                </div>
-                <div class="card-body p-0">
-                    <!-- Map container -->
-                    <div id="map" style="width: 100%; height: 500px;"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">Health Screening Services</div>
-                <div class="card-body">
-                    <div class="chart-container" style="width: 100%; height: 470px;">
-                        <canvas id="healthScreeningChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <canvas id="healthChart" height="120"></canvas>
-    </div>
-    
-    <!-- Three Funds Section -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Universal Health Coverage - Three Funds</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <h5 class="card-title">Primary Healthcare Fund</h5>
-                                    <p class="card-text">Government funding for essential health services accessible to all registered members.</p>
-                                    <ul>
-                                        <li>Outpatient services</li>
-                                        <li>Inpatient services</li>
-                                        <li>Maternity Services</li>
-                                        <li>Optical services</li>
-                                        <li>End of life services</li>
-                                        <li>Screening & management</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <h5 class="card-title">Social Health Insurance Fund</h5>
-                                    <p class="card-text">Individual premium-based insurance for comprehensive healthcare coverage.</p>
-                                    <ul>
-                                        <li>Renal care treatment</li>
-                                        <li>Oncology services</li>
-                                        <li>Mental Wellness services</li>
-                                        <li>Oral health services</li>
-                                        <li>Surgical services</li>
-                                        <li>Overseas treatment</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <h5 class="card-title">Emergency & Critical Illness Fund</h5>
-                                    <p class="card-text">Government funding for emergency and critical healthcare needs.</p>
-                                    <ul>
-                                        <li>Emergency evacuation</li>
-                                        <li>Critical care (ICU/HDU)</li>
-                                        <li>Chronic illness</li>
-                                        <li>Assistive devices</li>
-                                        <li>Palliative care</li>
-                                        <li>Stabilization services</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Maternal & Child Health Data -->
-    <div class="row mt-4">
-        <div class="col-md-12">
-    <div class="card">
-        <div class="card-header">
-            SHA Citizen Registrations by County
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover table-bordered">
-                    <thead class="table-dark text-center">
-                        <tr>
-                            <th>#</th>
-                            <th>County</th>
-                            <th>SHA Registrations</th>
-                            <th>Population</th>
-                            <th>Registration (%)</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        {% for county in counties %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ county.name }}</td>
-                            <td>{{ county.sha_registrations|intcomma }}</td>
-                            <td>{{ county.population|intcomma }}</td>
-                            <td>{{ county.sha_percentage }}%</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-    </div>
-
-    <!-- UHC Legislation Overview -->
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">UHC Legislation Framework</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Primary Healthcare Act</h5>
-                                    <p class="card-text">Framework for delivery, access, and management of primary healthcare through PCNs at levels 1-3.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Social Health Insurance Act</h5>
-                                    <p class="card-text">Repeals NHIF 1998, establishes SHA with three funds and mandatory contributions.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Digital Health Act</h5>
-                                    <p class="card-text">Establishes Digital Health Agency and integrated digital health information system.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+  .powerbi-container iframe {
+    display: block;
+    width: 100%;
+    height: 90vh;
+    border: none;
+  }
+</style>
 {% endblock %}
-{% block extrajs %}
-<script>
-    // Health Screening Chart
-    const healthScreeningCtx = document.getElementById('healthScreeningChart').getContext('2d');
-    new Chart(healthScreeningCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Diabetes Screenings', 'Diabetes Referrals', 'Hypertension Screenings', 'Hypertension Referrals', 'Children Under 5 Assessed'],
-            datasets: [{
-                label: 'Services Provided',
-                data: [28.23, 0.34, 19.08, 0.73, 7.14],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.7)',
-                    'rgba(255, 159, 64, 0.7)',
-                    'rgba(255, 205, 86, 0.7)',
-                    'rgba(75, 192, 192, 0.7)',
-                    'rgba(54, 162, 235, 0.7)'
-                ]
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Millions'
-                    }
-                }
-            }
-        }
-    });
+{% block content %}
+{%  include 'layout/pillar-nav.html' %}
+<div class="container section-title mt-3" data-aos="fade-up">
+    <h2>BETA - Universal Health Coverage Pillar</h2>
+    <p>Bottom- Up Economic Transformation Agenda 
+        (BETA)</p>
+</div>
 
-    // Maternal & Child Health Chart
-    const maternalChildHealthCtx = document.getElementById('maternalChildHealthChart').getContext('2d');
-    new Chart(maternalChildHealthCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Pregnant Women Attended', 'Antenatal Referrals', 'Children Assessed'],
-            datasets: [{
-                data: [344697, 134524, 7142903],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.7)',
-                    'rgba(54, 162, 235, 0.7)',
-                    'rgba(255, 206, 86, 0.7)'
-                ]
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Maternal & Child Health Services'
-                }
-            }
-        }
-    });
-</script>
-
-<script>
-    // Initialize the map
-    var map = L.map('map').setView([0.0236, 37.9062], 7);
-
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap'
-    }).addTo(map);
-
-    // Add geocoder search
-    L.Control.geocoder({
-        defaultMarkGeocode: true,
-        placeholder: "Search town, road, landmark...",
-        errorMessage: "Location not found.",
-        geocoder: L.Control.Geocoder.nominatim()
-    }).addTo(map);
-
-    // County locations with SHA % data
-    var locations = {{ counties|safe }};
-
-    locations.forEach(function(location) {
-        var popupContent = `
-            <b>${location.name}</b><br>
-            SHA Registrations: <b>${location.sha_registrations.toLocaleString()}</b><br>
-            Population: <b>${location.population.toLocaleString()}</b><br>
-            Registration(%): <b>${location.sha_percentage.toFixed(2)}%</b>
-        `;
-
-        // Marker with popup
-        L.marker([location.latitude, location.longitude]).addTo(map)
-            .bindPopup(popupContent);
-    });
-
-    // Fit map bounds to markers
-    var group = new L.featureGroup(locations.map(l => L.marker([l.latitude, l.longitude])));
-    map.fitBounds(group.getBounds().pad(0.1));
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    const labels = {{ chart_labels|safe }};
-    const diabetesData = {{ diabetes_data|safe }};
-    const hypertensionData = {{ hypertension_data|safe }};
-
-    const ctx = document.getElementById("healthChart").getContext("2d");
-
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    label: "Diabetes Cases",
-                    data: diabetesData,
-                    borderWidth: 3,
-                    tension: 0.4,
-                    borderColor: "rgba(255, 99, 132, 1)",
-                    backgroundColor: "rgba(255, 99, 132, 0.15)",
-                    fill: true,
-                    pointRadius: 4,
-                    pointHoverRadius: 6
-                },
-                {
-                    label: "Hypertension Cases",
-                    data: hypertensionData,
-                    borderWidth: 3,
-                    tension: 0.4,
-                    borderColor: "rgba(54, 162, 235, 1)",
-                    backgroundColor: "rgba(54, 162, 235, 0.15)",
-                    fill: true,
-                    pointRadius: 4,
-                    pointHoverRadius: 6
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: { size: 14 }
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function (ctx) {
-                            return ctx.dataset.label + ": " + ctx.raw.toLocaleString();
-                        }
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function (value) {
-                            return value.toLocaleString();
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-});
-</script>
-
+<div class="powerbi-container">
+  <iframe
+    title="DSH"
+    src="https://app.powerbi.com/view?r=eyJrIjoiZDYwMGVlNzMtNzdhMy00NTc1LTgzYWYtMTA0YTM5ZjkyNjY3IiwidCI6IjM5NjRhYmQ2LTEzM2QtNDYwMS04NmIxLTk3NWZiZTQ0MWFhYyIsImMiOjh9%22"
+    allowfullscreen>
+  </iframe>
+</div>
 {% endblock %}
