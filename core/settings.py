@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'betadash',
     'beta_auth',
     'audit',
-    'dsh'
+    'dsh',
+    'uhc',
+    'housing'
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,252 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block pillars %}active{% endblock %}
+
+{% block content %}
+
+{% block extracss %}
+<style>
+    .dashboard-title { font-weight: 700; color: #1f2937; }
+    .subtitle { color: #6b7280; font-size: 0.95rem; }
+    .kpi-card {
+        border-radius: 14px;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #047857, #10b981);
+        color: #fff;
+        box-shadow: 0 10px 20px rgba(0,0,0,.15);
+        text-align: center;
+    }
+    .kpi-value { font-size: 2rem; font-weight: 700; }
+    .kpi-label { font-size: 0.85rem; opacity: 0.85; }
+    .card { border: none; border-radius: 14px; box-shadow: 0 6px 15px rgba(0,0,0,.08); }
+    .card-header { font-weight: 600; background: #f9fafb; border-bottom: 1px solid #e5e7eb; }
+    .chart-box { height: 320px; }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+.select2-container--default .select2-selection--single {
+    height: 38px;
+    padding: 0 12px;
+    border-radius: 0.375rem;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 38px;
+    font-size: 0.875rem;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow { height: 38px; top: 0px; }
+.select2-container--default .select2-selection--single .select2-selection__placeholder { color: #6c757d; }
+</style>
+{% endblock %}
+
+{% include 'layout/pillar-nav.html' %}
+
+<div class="container section-title mt-3" data-aos="fade-up">
+    <h2>Universal Health Coverage (UHC) Pillar</h2>
+</div>
+
+<div class="container-fluid mt-4">
+    <!-- FILTER BAR -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <select id="yearFilter" class="form-select select2">
+                <option value="">All Years</option>
+                {% for y in years %}
+                    <option value="{{ y }}">{{ y }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select id="countyFilter" class="form-select select2">
+                <option value="">All Counties</option>
+                {% for county in counties %}
+                <option value="{{ county.id }}">{{ county.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- KPI ROW -->
+    <div class="row mb-4 g-3">
+        <!-- SHA Onboarded -->
+        <div class="col">
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiOnboarded">0</div>
+                <div class="kpi-label">SHA Onboarded</div>
+                <div class="kpi-target">Target: <span id="kpiOnboardedTarget">0</span></div>
+                <div class="progress mt-1" style="height:6px; border-radius:3px;">
+                    <div id="kpiOnboardedProgress" class="progress-bar bg-gradient-primary" role="progressbar" style="width:0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Individuals Treated -->
+        <div class="col">
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiTreated">0</div>
+                <div class="kpi-label">Individuals Treated</div>
+                <div class="kpi-target">Target: <span id="kpiTreatedTarget">0</span></div>
+                <div class="progress mt-1" style="height:6px; border-radius:3px;">
+                    <div id="kpiTreatedProgress" class="progress-bar bg-gradient-success" role="progressbar" style="width:0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Amount Disbursed -->
+        <div class="col">
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiDisbursed">0</div>
+                <div class="kpi-label">Amount Disbursed (KES)</div>
+                <div class="kpi-target">Target: <span id="kpiDisbursedTarget">0</span></div>
+                <div class="progress mt-1" style="height:6px; border-radius:3px;">
+                    <div id="kpiDisbursedProgress" class="progress-bar bg-gradient-warning" role="progressbar" style="width:0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Digitized Facilities -->
+        <div class="col">
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiDigitized">0</div>
+                <div class="kpi-label">Health Facilities Digitized</div>
+                <div class="kpi-target">Target: <span id="kpiDigitizedTarget">0</span></div>
+                <div class="progress mt-1" style="height:6px; border-radius:3px;">
+                    <div id="kpiDigitizedProgress" class="progress-bar bg-gradient-danger" role="progressbar" style="width:0%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHARTS ROW -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">SHA Onboarded per County</div>
+                <div class="card-body chart-box">
+                    <canvas id="onboardedChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Individuals Treated per County</div>
+                <div class="card-body chart-box">
+                    <canvas id="treatedChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECOND ROW -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Amount Disbursed per County</div>
+                <div class="card-body chart-box">
+                    <canvas id="disbursedChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Digitized Health Facilities per County</div>
+                <div class="card-body chart-box">
+                    <canvas id="digitizedChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extrajs %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+let onboardedChart, treatedChart, disbursedChart, digitizedChart;
+
+async function loadUHCDashboard() {
+    const year = $("#yearFilter").val();
+    const county = $("#countyFilter").val();
+    const params = new URLSearchParams();
+    if(year) params.append("year", year);
+    if(county) params.append("county", county);
+
+    // ===== Overview KPIs =====
+    const overview = await fetch(`/uhc/api/overview/?${params}`).then(r => r.json());
+    const targets = {{ targets|safe }};
+
+    function updateKPI(valueId, targetId, progressId, key) {
+        const val = overview[key] || 0;
+        const target = targets[key] || 0;
+        const percent = target ? Math.min((val / target) * 100, 100) : 0;
+
+        // Update KPI card
+        $(`#${valueId}`).text(val.toLocaleString());
+        $(`#${targetId}`).text(target.toLocaleString());
+        $(`#${progressId}`).css("width", percent + "%").attr("aria-valuenow", percent);
+    }
+
+    // Update all KPI cards
+    updateKPI("kpiOnboarded","kpiOnboardedTarget","kpiOnboardedProgress","sha_onboarded");
+    updateKPI("kpiTreated","kpiTreatedTarget","kpiTreatedProgress","individuals_treated");
+    updateKPI("kpiDisbursed","kpiDisbursedTarget","kpiDisbursedProgress","amount_disbursed");
+    updateKPI("kpiDigitized","kpiDigitizedTarget","kpiDigitizedProgress","digitized_facilities");
+
+    // ===== Charts =====
+     const chartMap = [
+        {url: "onboarded", el: "onboardedChart", label: "SHA Onboarded", chartVar: onboardedChart},
+        {url: "treated", el: "treatedChart", label: "Individuals Treated", chartVar: treatedChart},
+        {url: "disbursement", el: "disbursedChart", label: "Amount Disbursed", chartVar: disbursedChart},
+        {url: "digitized-facilities", el: "digitizedChart", label: "Digitized Facilities", chartVar: digitizedChart}
+    ];
+
+    for(const item of chartMap){
+        const data = await fetch(`/uhc/api/${item.url}/?${params}`).then(r => r.json());
+        const labels = data.by_county.map(d => d.county__name);
+        const values = data.by_county.map(d => Object.values(d)[1]); // second value in object
+
+        // Destroy existing chart if exists
+        if(item.chartVar) item.chartVar.destroy();
+
+        // Create new chart
+        const newChart = new Chart(document.getElementById(item.el), {
+            type: "bar",
+            data: {
+                labels,
+                datasets: [{
+                    label: item.label,
+                    data: values,
+                    backgroundColor: "#047857"
+                }]
+            },
+            options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        });
+
+        // Save chart reference back to the variable
+        switch(item.el) {
+            case "onboardedChart": onboardedChart = newChart; break;
+            case "treatedChart": treatedChart = newChart; break;
+            case "disbursedChart": disbursedChart = newChart; break;
+            case "digitizedChart": digitizedChart = newChart; break;
+        }
+    }
+}
+
+// ===== Initialize Select2 and load dashboard =====
+$(document).ready(function() {
+    $('.select2').select2({ width: '100%', placeholder:"Select an option", allowClear:true });
+    $('#yearFilter,#countyFilter').on('change', loadUHCDashboard);
+    loadUHCDashboard();
+});
+</script>
+
+{% endblock %}

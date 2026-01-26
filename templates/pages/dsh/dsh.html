@@ -48,18 +48,39 @@
     }
 </style>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+/* Make Select2 match Bootstrap height */
+.select2-container--default .select2-selection--single {
+    height: 38px;                 /* match form-select */
+    padding: 0 12px;
+    border-radius: 0.375rem;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 38px;            /* vertically center the text */
+    font-size: 0.875rem;          /* optional: match your dashboard font */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 38px;
+    top: 0px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #6c757d;               /* subtle gray placeholder */
+}
+</style>
+
 {% endblock %}
 
-{% include "layout/pillar-nav.html" %}
+{%  include 'layout/pillar-nav.html' %}
+<div class="container section-title mt-3" data-aos="fade-up">
+    <h2>BETA - Digital SuperHighway & Creative Economy Pillar</h2>
+</div>
 
 <div class="container-fluid mt-4">
-
-    <!-- TITLE -->
-    <div class="mb-4">
-        <h3 class="dashboard-title">Digital Superhighway & Creative Economy</h3>
-        <p class="subtitle">BETA – Real-time analytics and progress tracking</p>
-    </div>
-
     <!-- FILTER BAR -->
     <div class="row mb-4">
         <div class="col-md-3">
@@ -239,7 +260,7 @@ async function loadDashboard() {
         "wifi_hotspots": 25000,
         "ict_hubs": 1450,
         "trained_youth": 1250000,
-        "studio_recordings": 2000
+        "studio_recordings": 20000
     };
 
     // Utility to update KPI value, target, and progress
@@ -387,19 +408,16 @@ loadDashboard();
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 $(document).ready(function() {
-    // Initialize Select2
     $('.select2').select2({
         width: '100%',
         placeholder: "Select an option",
         allowClear: true
     });
 
-    // Event listeners for filters
     $('#yearFilter, #countyFilter').on('change', function() {
-        loadDashboard();  // your existing function
+        loadDashboard();
     });
 
-    // Initial load
     loadDashboard();
 });
 </script>

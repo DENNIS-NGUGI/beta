@@ -24,9 +24,9 @@ urlpatterns = [
     path('pillars/msme/', views.msme, name='msme'),
     path('pillars/', views.pillars, name='pillars'),
     path('projects/', views.projects, name='projects'),
-    path('pillars/uhc/', views.uhc, name='uhc'),
-    path('pillars/housing/', views.housing, name='housing'),
-    path('pillars/digital/', views.digital, name='digital'),
+    # path('pillars/uhc/', views.uhc, name='uhc'),
+    # path('pillars/housing/', views.housing, name='housing'),
+    # path('pillars/digital/', views.digital, name='digital'),
     path('power-bi/', views.power_bi, name='power_bi')
 
 ]
