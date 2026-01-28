@@ -19,15 +19,13 @@ def housing_dashboard(request):
     counties = County.objects.all().order_by("name")
     years = ReportingPeriod.objects.values_list("year", flat=True).distinct().order_by("year")
 
-    # Aggregate targets (sum across counties if multiple)
-    targets_qs = HousingTarget.objects.all()
-    targets = {}
-    for t in targets_qs:
-        if t.kpi in targets:
-            targets[t.kpi] += t.target_value
-        else:
-            targets[t.kpi] = t.target_value
-
+    targets = {
+        'kenyans_onboarded': HousingTarget.objects.get(kpi='kenyans_onboarded').target_value,
+        'units_completed': HousingTarget.objects.get(kpi='units').target_value,
+        'units_bought': HousingTarget.objects.get(kpi='units').target_value,
+        'units_pending': 'N/A'
+    }
+ 
     return render(
         request,
         "pages/housing/housing_dashboard.html",
