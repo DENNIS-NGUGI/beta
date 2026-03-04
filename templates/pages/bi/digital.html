@@ -1,6 +1,5 @@
-{% extends "layout/base.html" %}
-{% block bi %}active{% endblock %}
-
+{% extends "layout/bi-base.html" %}
+{% block pillars  %}active{% endblock %}
 {% block extracss %}
 <style>
   html, body {
@@ -33,12 +32,16 @@
   }
 </style>
 {% endblock %}
-
 {% block content %}
+{%  include 'layout/pillar-nav-bi.html' %}
+<div class="container section-title mt-3" data-aos="fade-up">
+    <h2>BETA - Digital SuperHighway & Creative Economy Pillar</h2>
+</div>
+
 <div class="powerbi-container">
   <iframe
-    title="ICTA BETA DASHBOARD"
-    src="https://app.powerbi.com/view?r=eyJrIjoiNTQyZjRjOTMtNzcwMi00YWEyLWEyNmEtNWFlMGM3MWQyNmIyIiwidCI6IjM5NjRhYmQ2LTEzM2QtNDYwMS04NmIxLTk3NWZiZTQ0MWFhYyIsImMiOjh9"
+    title="DSH"
+    src="https://app.powerbi.com/view?r=eyJrIjoiMTAxMjk1MGUtYmE0OC00MjNmLTg3MDAtMzNlZTY1ZTYyODViIiwidCI6IjM5NjRhYmQ2LTEzM2QtNDYwMS04NmIxLTk3NWZiZTQ0MWFhYyIsImMiOjh9"
     allowfullscreen>
   </iframe>
 </div>

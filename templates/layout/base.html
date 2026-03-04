@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Home - BETA Dashboard System</title>
+  <title>Home - BETA</title>
   <meta name="description" content="Bottom-Up Economic Transformation Agenda - Monitoring Dashboard">
   <meta name="keywords" content="BETA, Kenya, Economic Transformation, Dashboard, Agriculture, MSME, Housing, Health, Digital Economy">
 
@@ -25,22 +25,10 @@
   <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-  crossorigin=""/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 
   <!-- Main CSS File -->
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
-
-  <style>
-    .stats-board {
-      display: grid ;
-      grid-template-columns: repeat(5, 1fr)!important;
-      gap: 1.5rem;
-    }
-    
-  </style>
   {% block extracss %}{% endblock %}
 
 </head>
@@ -51,9 +39,7 @@
       <div class="top-row d-flex align-items-center justify-content-between">
         <a href="{% url 'dashboard' %}" class="logo d-flex align-items-center">
             <img src="{% static 'img/logo.png' %}" alt="Beta Logo">
-          <h1 class="sitename">BETA Dashboard System</h1>
         </a>
-
         <div class="nav-wrap">
           <div class="container d-flex justify-content-center position-relative">
             <nav id="navmenu" class="navmenu">
@@ -70,9 +56,8 @@
                     </ul>                    
                 </li>
                 <li><a href="{% url 'projects' %}" class="{% block projects %}{% endblock %}">Priority Projects</a></li>
-                <li><a href="{% url 'logout' %}" class="text-danger">Logout</a></li>
-              </ul>
-              
+                <li><a href="{% url 'login' %}" class="text-danger">Sign In</a></li>
+              </ul>              
               <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
             
@@ -83,35 +68,23 @@
         </div>
       </div>
     </div>
-
-
-
   </header>
 
   <main class="main">
     {% block content %}
-    {% endblock %}
-
-    
+    {% endblock %}  
 
   </main>
-
   <footer id="footer" class="footer position-relative">
-    <div class="container">
-        <p class="tagline"><strong>BETA Dashboard System</strong> | Bottom-Up Economic Transformation Agenda | All Rights Reserved!</p>
+    <div class="container text-center">
+      <p class="tagline">
+        &copy; {% now "Y" %} <strong>BETA Dashboard System</strong> | Bottom-Up Economic Transformation Agenda | All Rights Reserved!
+      </p>
     </div>
-</footer>
+  </footer>
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
 
   <!-- Vendor JS Files -->
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

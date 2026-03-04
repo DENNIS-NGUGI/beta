@@ -1,0 +1,393 @@
+{% extends "layout/bi-base.html" %}
+{% load static %}
+{% block pillars  %}active{% endblock %}
+{% block content %}
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>      
+      .card {
+          border-radius: 10px;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          margin-bottom: 1.5rem;
+          border: none;
+      }
+      .card-header {
+          background-color: #f8f9fa;
+          border-bottom: 1px solid #e3e6f0;
+          font-weight: 600;
+      }
+      .chart-container {
+          position: relative;
+          height: 300px;
+          margin-bottom: 1rem;
+      }
+      .priority-badge {
+          background-color: #2a5298;
+          color: white;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+          font-size: 0.75rem;
+      }
+      .stat-card {
+          text-align: center;
+          padding: 1rem;
+          border-radius: 8px;
+          background-color: #f8f9fa;
+      }
+      .stat-value {
+          font-size: 1.8rem;
+          font-weight: bold;
+          color: #2a5298;
+      }
+      .stat-label {
+          font-size: 0.9rem;
+          color: #6c757d;
+      }
+
+  </style>
+
+  {% include "layout/pillar-nav-bi.html" %}
+
+   
+<div class="container">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            <h2>BETA - Agriculture Pillar</h2>
+            </div><!-- End Section Title -->
+
+
+    <!-- Key Stats Row -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-value">11</div>
+                <div class="stat-label">Value Chains</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-value">KIAMIS</div>
+                <div class="stat-label">Farmer Registration</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-value">1,450+</div>
+                <div class="stat-label">Ward Cooperatives Target</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-value">26.3%</div>
+                <div class="stat-label">Hustler Fund Agriculture Loans</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Charts Row -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>Agricultural Production Value (KSH Billion)</span>
+                    <span class="priority-badge">Priority 1</span>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="agricultureProductionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Rice Paddy Production (2023/24)</div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="riceProductionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Second Charts Row -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Food Imports Reduction (Tonnes)</div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="foodImportsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Agricultural Credit Sources</div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="agriculturalCreditChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Value Chains and Initiatives -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Agriculture Value Chains & Initiatives</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Ten Value Chains</h5>
+                            <ul class="list-group">
+                                <li class="list-group-item">Tea</li>
+                                <li class="list-group-item">Cotton, Textile & Apparel</li>
+                                <li class="list-group-item">Maize</li>
+                                <li class="list-group-item">Rice</li>
+                                <li class="list-group-item">Edible Oil</li>
+                                <li class="list-group-item">Sugarcane</li>
+                                <li class="list-group-item">Pyrethrum</li>
+                                <li class="list-group-item">Coffee</li>
+                                <li class="list-group-item">Dairy</li>
+                                <li class="list-group-item">Leather</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Key Interventions</h5>
+                            <div class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <h6>Farmer Registration - KIAMIS</h6>
+                                    <p class="mb-0">Kenya Integrated Agriculture Management Information System for efficient farmer registration and data management.</p>
+                                </div>
+                            </div>
+                            <div class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <h6>Ward Multi-value Chain Cooperatives</h6>
+                                    <p class="mb-0">Establish/revive cooperatives in every ward to enhance value chain integration.</p>
+                                </div>
+                            </div>
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6>Fertiliser Subsidy Programme</h6>
+                                    <p class="mb-0">Supporting farmers with subsidized fertilizers to boost production.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Production Data Table -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Selected Agricultural Production Data (KSH Million)</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Commodity</th>
+                                    <th>2020</th>
+                                    <th>2021</th>
+                                    <th>2022</th>
+                                    <th>2023</th>
+                                    <th>2024</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Maize</td>
+                                    <td>8,282.5</td>
+                                    <td>6,881.1</td>
+                                    <td>7,282.0</td>
+                                    <td>11,340.3</td>
+                                    <td>10,354.2</td>
+                                </tr>
+                                <tr>
+                                    <td>Wheat</td>
+                                    <td>10,281.5</td>
+                                    <td>10,896.6</td>
+                                    <td>10,869.4</td>
+                                    <td>14,718.0</td>
+                                    <td>17,047.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Coffee</td>
+                                    <td>10,817.4</td>
+                                    <td>10,831.3</td>
+                                    <td>12,224.2</td>
+                                    <td>13,888.6</td>
+                                    <td>23,651.6</td>
+                                </tr>
+                                <tr>
+                                    <td>Tea</td>
+                                    <td>122,146.2</td>
+                                    <td>126,097.2</td>
+                                    <td>154,742.4</td>
+                                    <td>170,094.6</td>
+                                    <td>177,952.7</td>
+                                </tr>
+                                <tr>
+                                    <td>Horticulture</td>
+                                    <td>107,500.6</td>
+                                    <td>110,049.3</td>
+                                    <td>104,250.0</td>
+                                    <td>71,676.6</td>
+                                    <td>72,100.0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Agriculture Production Chart
+    const agricultureProductionCtx = document.getElementById('agricultureProductionChart').getContext('2d');
+    new Chart(agricultureProductionCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Maize', 'Wheat', 'Coffee', 'Tea', 'Horticulture'],
+            datasets: [{
+                label: '2020 (KSH Billion)',
+                data: [82.2, 10.3, 10.8, 122.1, 107.5],
+                backgroundColor: 'rgba(54, 162, 235, 0.7)'
+            }, {
+                label: '2024 (KSH Billion)',
+                data: [63.0, 17.0, 23.7, 178.0, 72.1],
+                backgroundColor: 'rgba(75, 192, 192, 0.7)'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'KSH Billion'
+                    }
+                }
+            }
+        }
+    });
+
+    // Rice Production Chart
+    const riceProductionCtx = document.getElementById('riceProductionChart').getContext('2d');
+    new Chart(riceProductionCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Mwea', 'Ahero', 'West Kano', 'Bunyala', 'Others'],
+            datasets: [{
+                data: [180160, 23993, 7924, 8503, 25472],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Rice Production by Scheme (Tonnes)'
+                }
+            }
+        }
+    });
+
+    // Food Imports Chart
+    const foodImportsCtx = document.getElementById('foodImportsChart').getContext('2d');
+    new Chart(foodImportsCtx, {
+        type: 'line',
+        data: {
+            labels: ['2020', '2021', '2022', '2023', '2024'],
+            datasets: [{
+                label: 'Wheat (Tonnes)',
+                data: [1882450.5, 1889921.9, 1676623.9, 2037036.0, 2314094.5],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                tension: 0.1
+            }, {
+                label: 'Rice (Tonnes)',
+                data: [605147.5, 630910.5, 678087.6, 937098.5, 899212.7],
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                tension: 0.1
+            }, {
+                label: 'Maize (Tonnes)',
+                data: [273472.2, 486525.0, 793751.5, 507932.5, 309274.3],
+                borderColor: 'rgba(255, 206, 86, 1)',
+                backgroundColor: 'rgba(255, 206, 86, 0.1)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Tonnes'
+                    }
+                }
+            }
+        }
+    });
+
+    // Agricultural Credit Sources Chart
+    const agriculturalCreditCtx = document.getElementById('agriculturalCreditChart').getContext('2d');
+    new Chart(agriculturalCreditCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Hustler Fund', 'SACCO', 'Banks', 'Digital Loans', 'Friends/Family', 'Others'],
+            datasets: [{
+                data: [26.3, 24.6, 9.8, 6.2, 4.8, 28.3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)',
+                    'rgba(255, 159, 64, 0.7)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Agricultural Financing Sources (%)'
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock %}
+
+

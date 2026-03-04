@@ -5,197 +5,336 @@
 
 
 <!-- Featured Services Section -->
-    <section id="featured-services" class="featured-services section">
-            <!-- Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-              <h2>Dashboard Features</h2>
-              <p>Comprehensive Monitoring & Analytics</p>
-            </div><!-- End Section Title -->
+<section id="featured-services" class="featured-services section py-5">
+  <div class="container" data-aos="fade-up">
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
+   <div class="hero-image mb-5" data-aos="fade-up">
+  <div class="container-fluid px-0"> <!-- full-width container -->
+    <img src="{% static 'img/hero.png' %}" 
+         alt="HE William Ruto"
+         class="img-fluid w-100"
+         style="height: auto; display: block;">
+  </div>
+</div>
+    <!-- What is it Section -->
+<div class="row align-items-center g-4 mt-4">
+  
+  <!-- Image Left -->
+  <div class="col-lg-6 order-lg-1 text-center" data-aos="fade-right">
+    <img src="{% static 'img/plan.png' %}" 
+         alt="Inclusive Growth Illustration" 
+         class="img-fluid rounded shadow-lg" 
+         style="max-height: 300px; width: auto;">
+  </div>
 
-        <div class="row g-4">
+<!-- Text Right -->
+<div class="col-lg-6 order-lg-2" data-aos="fade-left">
+  <div class="what-is-it">
 
-          <!-- Card 1 -->
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item">
-              <div class="icon">
-                <i class="bi bi-stack"></i>
-              </div>
-              <h3>Core Pillar Analytics</h3>
-              <p>Track progress across 5 core BETA pillars with real-time data visualization, performance metrics, and milestone tracking for informed decision-making.</p>
-              <div class="card-links">
-                <a href="{% url 'agriculture' %}" class="link-item">
-                  View Pillars
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
+    <!-- Quiz Title -->
+    <h4 class="fw-bold mb-4" style="color:#28a745;">
+      <i class="bi bi-question-circle-fill me-2"></i>
+      What is it about?
+    </h4>
 
-          <!-- Card 2 -->
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item">
-              <div class="icon">
-                <i class="bi bi-shield-check"></i>
-              </div>
-              <h3>Performance Monitoring</h3>
-              <p>Monitor key performance indicators, implementation progress, and impact assessment across all 31 priority initiatives with detailed analytics.</p>
-              <div class="card-links">
-                <a href="{% url 'projects' %}" class="link-item">
-                  View Progress
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
+    <!-- Paragraphs -->
+    <p class="lead d-flex align-items-start">
+      <i class="bi bi-check-circle fs-3 text-success me-3"></i>
+      Investing the limited capital available where it will create the most jobs at the bottom of the pyramid.
+    </p>
+    <p class="lead d-flex align-items-start">
+      <i class="bi bi-check-circle fs-3 text-success me-3"></i>
+      Shifting focus from large-scale capital projects and prioritizing investment in high-impact sectors to foster inclusive growth for the masses.
+    </p>
+    
+  </div>
+</div>
 
-          <!-- Card 3 -->
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-          <div class="service-item">
-            <div class="icon">
-              <i class="bi bi-graph-up"></i>
-            </div>
-            <h3>Power BI Analytics</h3>
-            <p>
-              Explore interactive Power BI dashboards featuring in-depth analytics from
-              ministry submissions. Visualize trends, track performance indicators, and
-              gain data-driven insights across sectors in real time.
-            </p>
-            <div class="card-links">
-             
-            </div>
+</div>
+
+  </div>
+</section>
+
+<!-- BETA-Mwananchi KPIs Section -->
+<section id="kpis" class="py-5 bg-light">
+  <div class="container" data-aos="fade-up">
+    <!-- Section Title -->
+    <div class="text-center mb-5">
+      <h2 class="fw-bold" style="color:#000;">BETA-Mwananchi’s Key Performance Indicators (KPIs)</h2>
+      <p class="lead text-muted">Driving Bottom-Up Economic Transformation</p>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="row g-4 justify-content-center">
+      <!-- KPI 1 -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="card h-100 text-center border-0 shadow-sm rounded" style="border-left: 5px solid #28a745;">
+          <div class="card-body">
+            <i class="bi bi-people-fill fs-1 text-success mb-3"></i>
+            <h5 class="card-title fw-bold">Job Creation</h5>
+            <p class="card-text text-dark">Focusing investments to generate employment at the bottom of the pyramid.</p>
           </div>
         </div>
-        <!-- End Service Item -->
-        </div>
-
       </div>
 
-    </section><!-- /Featured Services Section -->
-
-
-<!-- Stats Section -->
-<section id="stats" class="stats section">
-  <!-- Section Title -->
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Pillars vs Priorities</h2>
-    <p>Analytics</p>
-  </div><!-- End Section Title -->
-
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-    <div class="row justify-content-center">
-      <div class="col-lg-12">
-        <div class="stats-board">
-          <article class="stat-tile" data-aos="fade-up" data-aos-delay="150">
-            <div class="tile-head">
-              <i class="bi bi-emoji-smile"></i>
-              <div class="label">
-                <h6 class="title">Agriculture</h6>
-                <small class="hint">11 Priorities</small>
-              </div>
-            </div>
-            <div class="tile-metric">
-              <span class="metric-number purecounter" data-purecounter-start="0" data-purecounter-end="11" data-purecounter-duration="1"></span>
-            </div>
-            <div class="tile-footer">
-            <a href="{% url 'agriculture' %}" class="link-item">
-              Explore
-              <i class="bi bi-arrow-right"></i>
-            </a>
-            </div>
-          </article><!-- End Stat Tile -->
-
-          <article class="stat-tile" data-aos="fade-up" data-aos-delay="200">
-            <div class="tile-head">
-              <i class="bi bi-journal-richtext"></i>
-              <div class="label">
-                <h6 class="title">MSME Economy</h6>
-                <small class="hint">3 Priorities</small>
-              </div>
-            </div>
-            <div class="tile-metric">
-              <span class="metric-number purecounter" data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1"></span>
-            </div>
-            <div class="tile-footer">
-              <a href="{% url 'msme' %}" class="link-item">
-                Explore
-                <i class="bi bi-arrow-right"></i>
-              </a>
-              </div>
-          </article><!-- End Stat Tile -->
-
-          <article class="stat-tile" data-aos="fade-up" data-aos-delay="250">
-            <div class="tile-head">
-              <i class="bi bi-house"></i>
-              <div class="label">
-                <h6 class="title">Affordable Housing</h6>
-                <small class="hint">5 Priorities</small>
-              </div>
-            </div>
-            <div class="tile-metric">
-              <span class="metric-number purecounter" data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1"></span>
-            </div>
-            <div class="tile-footer">
-              <a href="{% url 'housing' %}" class="link-item">
-                Explore
-                <i class="bi bi-arrow-right"></i>
-              </a>
-              </div>
-          </article><!-- End Stat Tile -->
-
-          <article class="stat-tile" data-aos="fade-up" data-aos-delay="300">
-            <div class="tile-head">
-              <i class="bi bi-heart-pulse"></i>
-              <div class="label">
-                <h6 class="title">Universal Health</h6>
-                <small class="hint">6 Priorities</small>
-              </div>
-            </div>
-            <div class="tile-metric">
-              <span class="metric-number purecounter" data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1"></span>
-            </div>
-            <div class="tile-footer">
-              <a href="{% url 'uhc' %}" class="link-item">
-                Explore
-                <i class="bi bi-arrow-right"></i>
-              </a>
-              </div>
-          </article><!-- End Stat Tile -->
-
-          <article class="stat-tile" data-aos="fade-up" data-aos-delay="350">
-            <div class="tile-head">
-              <i class="bi bi-laptop"></i>
-              <div class="label">
-                <h6 class="title">Digital & Creative</h6>
-                <small class="hint">6 Priorities</small>
-              </div>
-            </div>
-            <div class="tile-metric">
-              <span class="metric-number purecounter" data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1"></span>
-            </div>
-            <div class="tile-footer">
-              <a href="{% url 'dsh' %}" class="link-item">
-                Explore
-                <i class="bi bi-arrow-right"></i>
-              </a>
-              </div>
-          </article><!-- End Stat Tile -->
-
+      <!-- KPI 2 -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="card h-100 text-center border-0 shadow-sm rounded" style="border-left: 5px solid #dc3545;">
+          <div class="card-body">
+            <i class="bi bi-heart-pulse-fill fs-1 text-danger mb-3"></i>
+            <h5 class="card-title fw-bold">Reducing Medical Harambees</h5>
+            <p class="card-text text-dark">Reducing unnecessary medical fund contributions to alleviate citizens’ burden.</p>
+          </div>
         </div>
+      </div>
 
-        <div class="legend-row" data-aos="fade-down" data-aos-delay="400">
-          <div class="legend-item">
-            <span class="dot dot-primary"></span>
-            <span class="text">Live Data Updates</span>
+      <!-- KPI 3 -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="card h-100 text-center border-0 shadow-sm rounded" style="border-left: 5px solid #28a745;">
+          <div class="card-body">
+            <i class="bi bi-currency-dollar fs-1 text-success mb-3"></i>
+            <h5 class="card-title fw-bold">Increase in Incomes</h5>
+            <p class="card-text text-dark">Boosting household earnings through strategic bottom-up investments.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI 4 -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+        <div class="card h-100 text-center border-0 shadow-sm rounded" style="border-left: 5px solid #000;">
+          <div class="card-body">
+            <i class="bi bi-arrow-up-right-circle fs-1 text-dark mb-3"></i>
+            <h5 class="card-title fw-bold">Bottom-Up Economic Transformation Agenda</h5>
+            <p class="card-text text-dark">Prioritizing investments that empower the masses and drive inclusive growth.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI 5 -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+        <div class="card h-100 text-center border-0 shadow-sm rounded" style="border-left: 5px solid #dc3545;">
+          <div class="card-body">
+            <i class="bi bi-slash-circle fs-1 text-danger mb-3"></i>
+            <h5 class="card-title fw-bold">Reducing Predatory Lending</h5>
+            <p class="card-text text-dark">Protecting citizens from high-interest and exploitative loans.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI 6 -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
+        <div class="card h-100 text-center border-0 shadow-sm rounded" style="border-left: 5px solid #28a745;">
+          <div class="card-body">
+            <i class="bi bi-basket-fill fs-1 text-success mb-3"></i>
+            <h5 class="card-title fw-bold">Bring Down Cost of Living — Food</h5>
+            <p class="card-text text-dark">Ensuring affordable access to essential food items for all citizens.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI 7 -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="700">
+        <div class="card h-100 text-center border-0 shadow-sm rounded" style="border-left: 5px solid #dc3545;">
+          <div class="card-body">
+            <i class="bi bi-exclamation-triangle-fill fs-1 text-danger mb-3"></i>
+            <h5 class="card-title fw-bold">Reducing Number of Food Poor</h5>
+            <p class="card-text text-dark">Tackling food wastage and improving supply chain efficiency for households.</p>
           </div>
         </div>
       </div>
     </div>
-
   </div>
+</section>
 
+<!-- Pillars Section -->
+<section id="pillars" class="stats section py-5 bg-light">
+  <div class="container" data-aos="fade-up">
+
+    <!-- Section Title -->
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Growth in New Jobs & Incomes</h2>
+      <p class="lead text-muted">Priority Sectors & Key Interventions</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+
+      <!-- Card 1: Agriculture -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <a href="{% url 'agriculture' %}" class="card h-100 text-decoration-none text-dark shadow-sm rounded hover-scale p-3 d-flex flex-column">
+          <div class="text-center mb-3">
+            <i class="bi bi-emoji-sunglasses fs-1 text-success"></i>
+            <h5 class="fw-bold mt-2">Agriculture</h5>
+          </div>
+          <div class="d-flex flex-wrap justify-content-center gap-2 mt-2">
+            <span class="badge rounded-pill bg-success text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Crop Production
+            </span>
+            <span class="badge rounded-pill bg-success text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Livestock
+            </span>
+            <span class="badge rounded-pill bg-success text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Fisheries
+            </span>
+          </div>
+          <div class="mt-auto text-center pt-3">
+            <small class="text-muted fst-italic">
+              Click to explore more about Agriculture initiatives
+            </small>
+          </div>
+        </a>
+      </div>
+
+      <!-- Card 2: Health -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="150">
+        <a href="{% url 'uhc' %}" class="card h-100 text-decoration-none text-dark shadow-sm rounded hover-scale p-3 d-flex flex-column">
+          <div class="text-center mb-3">
+            <i class="bi bi-heart-pulse fs-1 text-danger"></i>
+            <h5 class="fw-bold mt-2">Health</h5>
+          </div>
+          <div class="d-flex flex-wrap justify-content-center gap-2 mt-2">
+            <span class="badge rounded-pill bg-danger text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Primary Healthcare
+            </span>
+            <span class="badge rounded-pill bg-danger text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Health Insurance Coverage
+            </span>
+            <span class="badge rounded-pill bg-danger text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Health Data Systems & Capacity
+            </span>
+          </div>
+          <div class="mt-auto text-center pt-3">
+            <small class="text-muted fst-italic">
+              Click to explore more about Health initiatives
+            </small>
+          </div>
+        </a>
+      </div>
+
+      <!-- Card 3: ICT & Digital Superhighway -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+        <a href="{% url 'dsh' %}" class="card h-100 text-decoration-none text-dark shadow-sm rounded hover-scale p-3 d-flex flex-column">
+          <div class="text-center mb-3">
+            <i class="bi bi-laptop fs-1 text-primary"></i>
+            <h5 class="fw-bold mt-2">ICT & Digital Superhighway</h5>
+          </div>
+          <div class="d-flex flex-wrap justify-content-center gap-2 mt-2">
+            <span class="badge rounded-pill bg-primary text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Infrastructure
+            </span>
+            <span class="badge rounded-pill bg-primary text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Platforms
+            </span>
+            <span class="badge rounded-pill bg-primary text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Skills
+            </span>
+            <span class="badge rounded-pill bg-primary text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Entrepreneurship
+            </span>
+          </div>
+          <div class="mt-auto text-center pt-3">
+            <small class="text-muted fst-italic">
+              Click to explore more about ICT initiatives
+            </small>
+          </div>
+        </a>
+      </div>
+
+      <!-- Card 4: MSMEs -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="250">
+        <a href="{% url 'msme' %}" class="card h-100 text-decoration-none text-dark shadow-sm rounded hover-scale p-3 d-flex flex-column">
+          <div class="text-center mb-3">
+            <i class="bi bi-building fs-1 text-success"></i>
+            <h5 class="fw-bold mt-2">MSMEs</h5>
+          </div>
+          <div class="d-flex flex-wrap justify-content-center gap-2 mt-2">
+            <span class="badge rounded-pill bg-success text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Trade & Markets
+            </span>
+            <span class="badge rounded-pill bg-success text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Financing
+            </span>
+            <span class="badge rounded-pill bg-success text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Business Development Support
+            </span>
+          </div>
+          <div class="mt-auto text-center pt-3">
+            <small class="text-muted fst-italic">
+              Click to explore more about MSMEs initiatives
+            </small>
+          </div>
+        </a>
+      </div>
+
+      <!-- Card 5: Affordable Housing -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+        <a href="{% url 'housing' %}" class="card h-100 text-decoration-none text-dark shadow-sm rounded hover-scale p-3 d-flex flex-column">
+          <div class="text-center mb-3">
+            <i class="bi bi-house fs-1 text-info"></i>
+            <h5 class="fw-bold mt-2">Affordable Housing</h5>
+          </div>
+          <div class="d-flex flex-wrap justify-content-center gap-2 mt-2">
+            <span class="badge rounded-pill bg-info text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> PPPs & Financing
+            </span>
+            <span class="badge rounded-pill bg-info text-white">
+              <i class="bi bi-arrow-right-circle me-1"></i> Mortgages
+            </span>
+          </div>
+          <div class="mt-auto text-center pt-3">
+            <small class="text-muted fst-italic">
+              Click to explore more about Housing initiatives
+            </small>
+          </div>
+        </a>
+      </div>
+
+      <!-- Card 6: Cooperatives & Enablers -->
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="350">
+        <a href="{% url 'housing' %}" class="card h-100 text-decoration-none text-dark shadow-sm rounded hover-scale p-3 d-flex flex-column">
+          <div class="text-center mb-3">
+            <i class="bi bi-people fs-1 text-warning"></i>
+            <h5 class="fw-bold mt-2">Cooperatives & Enablers</h5>
+          </div>
+          <div class="d-flex flex-wrap justify-content-center gap-2 mt-2">
+            <span class="badge rounded-pill bg-warning text-dark">
+              <i class="bi bi-arrow-right-circle me-1"></i> Enabling Policy Environment
+            </span>
+            <span class="badge rounded-pill bg-warning text-dark">
+              <i class="bi bi-arrow-right-circle me-1"></i> Institutional Support
+            </span>
+            <span class="badge rounded-pill bg-warning text-dark">
+              <i class="bi bi-arrow-right-circle me-1"></i> Value Chain Integration
+            </span>
+          </div>
+          <div class="mt-auto text-center pt-3">
+            <small class="text-muted fst-italic">
+              Click to explore more about Cooperatives initiatives
+            </small>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 {% endblock content %}
+
+{% block extracss %}
+<style>
+  .hover-scale {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .hover-scale:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.15);
+  }
+  .card .badge {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.7rem;
+  }
+  .card .badge i {
+    vertical-align: middle;
+  }
+</style>
+{% endblock %}

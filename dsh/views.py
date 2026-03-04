@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.db.models import Sum, Count
 from django.views.decorators.http import require_GET
-from django.contrib.auth.decorators import login_required
 
 from .models import (
     County,
@@ -15,7 +14,6 @@ from .models import (
     StudioProduction,
 )
 
-@login_required
 def dsh(request):
     # Counties for filter
     counties = County.objects.all().order_by("name")

@@ -1,0 +1,75 @@
+<style>
+    .pillars-nav {
+      padding: 40px 0 20px 0;
+    }
+    
+    .pillar-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      color: #6c757d;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .pillar-btn:hover {
+      background: #e9ecef;
+      border-color: #2a5298;
+      color: #2a5298;
+      transform: translateY(-2px);
+    }
+    
+    .pillar-btn.active {
+      background: #2a5298;
+      border-color: #2a5298;
+      color: white;
+    }
+    
+    .pillar-btn.active:hover {
+      background: #1e3c72;
+      border-color: #1e3c72;
+      color: white;
+      transform: translateY(-2px);
+    }
+    </style>
+
+
+    <!-- Compact Pillars Navigation -->
+<section id="pillars-nav" class="pillars-nav section">
+    <div class="container" data-aos="fade-up">
+      <div class="pillars-buttons" data-aos="fade-up" data-aos-delay="100">
+        <div class="row g-2 justify-content-center">
+          <div class="col-auto">
+            <a href="{% url 'bi_agriculture' %}" class="pillar-btn {% if request.resolver_match.url_name == 'agriculture' %}active{% endif %}">
+              <span>Agriculture</span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a href="{% url 'bi_msme' %}" class="pillar-btn {% if request.resolver_match.url_name == 'msme' %}active{% endif %}">
+              <span>MSME Economy</span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a href="{% url 'bi_housing' %}" class="pillar-btn {% if request.resolver_match.url_name == 'housing' %}active{% endif %}">
+              <span>Affordable Housing</span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a href="{% url 'bi_uhc' %}" class="pillar-btn {% if request.resolver_match.url_name == 'uhc' %}active{% endif %}">
+              <span>Universal Health</span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a href="{% url 'bi_digital' %}" class="pillar-btn {% if request.resolver_match.url_name == 'dsh' %}active{% endif %}">
+              <span>Digital & Creative</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

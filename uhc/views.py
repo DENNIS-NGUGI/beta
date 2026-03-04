@@ -14,7 +14,6 @@ from .models import (
     HealthFacilityDigitized,
 )
 
-@login_required
 def uhc_dashboard(request):
     counties = County.objects.all().order_by("name")
     years = ReportingPeriod.objects.values_list("year", flat=True).distinct().order_by("year")

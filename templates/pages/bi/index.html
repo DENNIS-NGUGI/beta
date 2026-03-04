@@ -1,0 +1,119 @@
+{% extends 'layout/bi-base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row mb-5 text-center">
+        <div class="col-12">
+            <h2 class="fw-bold">Dashboard Features</h2>
+            <p class="text-muted">Comprehensive Monitoring & Analytics</p>
+        </div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="{% url 'bi_agriculture' %}" class="text-decoration-none pill-card-link">
+                <div class="card h-100 border-0 shadow-sm pill-card">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
+                        <div class="icon-box mb-3" style="background-color: rgba(40, 167, 69, 0.1);">
+                            <i class="bi bi-tree-fill" style="color: #28a745;"></i>
+                        </div>
+                        <h6 class="card-title fw-bold text-dark mb-0">Agriculture</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="{% url 'bi_msme' %}" class="text-decoration-none pill-card-link">
+                <div class="card h-100 border-0 shadow-sm pill-card">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
+                        <div class="icon-box mb-3" style="background-color: rgba(253, 126, 20, 0.1);">
+                            <i class="bi bi-shop-window" style="color: #fd7e14;"></i>
+                        </div>
+                        <h6 class="card-title fw-bold text-dark mb-0">MSME Economy</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="{% url 'bi_housing' %}" class="text-decoration-none pill-card-link">
+                <div class="card h-100 border-0 shadow-sm pill-card">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
+                        <div class="icon-box mb-3" style="background-color: rgba(0, 123, 255, 0.1);">
+                            <i class="bi bi-house-fill" style="color: #007bff;"></i>
+                        </div>
+                        <h6 class="card-title fw-bold text-dark mb-0">Affordable Housing</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="{% url 'bi_uhc' %}" class="text-decoration-none pill-card-link">
+                <div class="card h-100 border-0 shadow-sm pill-card">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
+                        <div class="icon-box mb-3" style="background-color: rgba(220, 53, 69, 0.1);">
+                            <i class="bi bi-heart-pulse-fill" style="color: #dc3545;"></i>
+                        </div>
+                        <h6 class="card-title fw-bold text-dark mb-0 text-center">Universal Health Coverage</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="{% url 'bi_digital' %}" class="text-decoration-none pill-card-link">
+                <div class="card h-100 border-0 shadow-sm pill-card">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center p-4">
+                        <div class="icon-box mb-3" style="background-color: rgba(111, 66, 193, 0.1);">
+                            <i class="bi bi-laptop-fill" style="color: #6f42c1;"></i>
+                        </div>
+                        <h6 class="card-title fw-bold text-dark mb-0 text-center">Digital Superhighway & Creative Economy</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extracss %}
+<style>
+    /* Card Container */
+    .pill-card {
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        border-radius: 16px;
+    }
+
+    /* Subtle hover: lift card and brighten shadow */
+    .pill-card-link:hover .pill-card {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+        background-color: #ffffff;
+    }
+
+    /* Icon Box styling */
+    .icon-box {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 2rem;
+        transition: transform 0.3s ease;
+    }
+
+    /* Icon movement on hover */
+    .pill-card-link:hover .icon-box {
+        transform: scale(1.1);
+    }
+
+    /* Ensure text alignment is clean */
+    .card-title {
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+</style>
+{% endblock %}

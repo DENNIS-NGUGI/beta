@@ -47,7 +47,10 @@ INSTALLED_APPS = [
     'audit',
     'dsh',
     'uhc',
-    'housing'
+    'housing',
+    'agriculture',
+    'msme',
+    'bi',
 ]
 
 MIDDLEWARE = [

@@ -23,5 +23,8 @@ urlpatterns = [
     path('beta/auth/', include('beta_auth.urls')),
     path('dsh/', include('dsh.urls')),
     path('uhc/', include('uhc.urls')),
-    path('housing/', include('housing.urls'))
+    path('housing/', include('housing.urls')),
+    path('agriculture/', include('agriculture.urls')),
+    path('msme/', include('msme.urls')),
+    path('bi/', include('bi.urls'))
 ]

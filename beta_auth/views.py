@@ -246,7 +246,7 @@ def add_password(request):
 def login_view(request):
     next_url = request.GET.get('next')
     if request.user.is_authenticated:
-       return redirect(next_url or 'dashboard')
+       return redirect(next_url or 'bi_index')
 
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -259,7 +259,7 @@ def login_view(request):
                 if not u.password_changed and not u.is_superuser:
                     return redirect(reverse('change_password', args=(u.id,)))
                 login(request, user)
-                return redirect(next_url or 'dashboard')
+                return redirect(next_url or 'bi_index')
             else:
                 messages.error(request, "Invalid credentials.")
         else:

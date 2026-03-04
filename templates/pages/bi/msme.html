@@ -1,0 +1,407 @@
+{% extends "layout/bi-base.html" %}
+{% load static %}
+{% block pillars  %}active{% endblock %}
+{% block content %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+
+    
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin-bottom: 1.5rem;
+        border: none;
+    }
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #e3e6f0;
+        font-weight: 600;
+    }
+    .chart-container {
+        position: relative;
+        height: 300px;
+        margin-bottom: 1rem;
+    }
+    .priority-badge {
+        background-color: #2a5298;
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.75rem;
+    }
+    .stat-card {
+        text-align: center;
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+    }
+    .stat-value {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #2a5298;
+    }
+    .stat-label {
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+
+</style>
+
+{% include "layout/pillar-nav-bi.html" %}
+<!-- MSME Economy Content -->
+<div class="container">
+                <!-- Section Title -->
+                <div class="container section-title" data-aos="fade-up">
+                    <h2>BETA - MSME Economy Pillar</h2>
+                  </div><!-- End Section Title -->
+
+    <!-- Key Stats Row -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-value">26M+</div>
+                <div class="stat-label">Personal Loans</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-value">KSH 66.5B</div>
+                <div class="stat-label">Amount Disbursed</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-value">58,694</div>
+                <div class="stat-label">Groups Registered</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-value">7.43M</div>
+                <div class="stat-label">Enterprises Total</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Charts Row -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>Hustler Fund Impact</span>
+                    <span class="priority-badge">Priority 2</span>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center mb-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="stat-card">
+                                <div class="stat-value">26M+</div>
+                                <div class="stat-label">Personal Loans</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="stat-card">
+                                <div class="stat-value">KSH 66.5B</div>
+                                <div class="stat-label">Amount Disbursed</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="stat-card">
+                                <div class="stat-value">58,694</div>
+                                <div class="stat-label">Groups Registered</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="hustlerFundChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">MSME Profile (2016 Survey)</div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="msmeProfileChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Agricultural Credit & Employment Charts -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Agricultural Credit Sources</div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="agriculturalCreditChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Employment Structure ('000, 2024)</div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="employmentStructureChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MSME Comparison Table -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">MSME Enterprise Profile Comparison</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Indicator</th>
+                                    <th>Licensed/Formal</th>
+                                    <th>Unlicensed/Informal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>No. of Enterprises (millions)</td>
+                                    <td>1.56</td>
+                                    <td>5.85</td>
+                                </tr>
+                                <tr>
+                                    <td>Employment (millions)</td>
+                                    <td>6.28</td>
+                                    <td>8.62</td>
+                                </tr>
+                                <tr>
+                                    <td>Average Revenue (KSH/year)</td>
+                                    <td>4,376,923</td>
+                                    <td>131,282</td>
+                                </tr>
+                                <tr>
+                                    <td>Average Operating Surplus (KSH/year)</td>
+                                    <td>2,392,308</td>
+                                    <td>57,436</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Taxes (KSH billion/year)</td>
+                                    <td>406</td>
+                                    <td>1.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Revenue per Worker (KSH/year)</td>
+                                    <td>1,087,261</td>
+                                    <td>89,126</td>
+                                </tr>
+                                <tr>
+                                    <td>Operating Surplus per Worker (KSH/month)</td>
+                                    <td>49,522</td>
+                                    <td>3,249</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Financial Inclusion Initiatives -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">MSME Support Initiatives</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title">Financial Inclusion</h5>
+                                    <p class="card-text">Access to affordable credit through Hustler Fund and other financial instruments.</p>
+                                    <ul>
+                                        <li>Personal loans</li>
+                                        <li>Group loans</li>
+                                        <li>Bridge loans</li>
+                                        <li>Savings products</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title">Access to Markets</h5>
+                                    <p class="card-text">Creating pathways for MSMEs to access local and international markets.</p>
+                                    <ul>
+                                        <li>Market linkages</li>
+                                        <li>E-commerce platforms</li>
+                                        <li>Trade exhibitions</li>
+                                        <li>Export support</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title">Commercial Infrastructure</h5>
+                                    <p class="card-text">Developing supportive infrastructure for business growth and sustainability.</p>
+                                    <ul>
+                                        <li>Business hubs</li>
+                                        <li>Common facilities</li>
+                                        <li>Digital platforms</li>
+                                        <li>Training centers</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Hustler Fund Chart
+    const hustlerFundCtx = document.getElementById('hustlerFundChart').getContext('2d');
+    new Chart(hustlerFundCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Personal Loans', 'Group Loans', 'Bridge Loans'],
+            datasets: [{
+                label: 'Number of Loans',
+                data: [26026236, 58694, 575445],
+                backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                yAxisID: 'y'
+            }, {
+                label: 'Amount Disbursed (KSH Billion)',
+                data: [66.5, 0.2, 4.9],
+                backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                yAxisID: 'y1'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Number of Loans'
+                    }
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'KSH Billion'
+                    },
+                    grid: {
+                        drawOnChartArea: false
+                    }
+                }
+            }
+        }
+    });
+
+    // MSME Profile Chart
+    const msmeProfileCtx = document.getElementById('msmeProfileChart').getContext('2d');
+    new Chart(msmeProfileCtx, {
+        type: 'bar',
+        data: {
+            labels: ['No. of Enterprises', 'Employment', 'Av. Revenue (KSH)', 'Av. Operating Surplus (KSH)', 'Total Taxes (KSH B)'],
+            datasets: [{
+                label: 'Licensed/Formal',
+                data: [1.56, 6.28, 4376923, 2392308, 406],
+                backgroundColor: 'rgba(54, 162, 235, 0.7)'
+            }, {
+                label: 'Unlicensed/Informal',
+                data: [5.85, 8.62, 131282, 57436, 1.5],
+                backgroundColor: 'rgba(255, 99, 132, 0.7)'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    type: 'logarithmic'
+                }
+            }
+        }
+    });
+
+    // Agricultural Credit Sources Chart
+    const agriculturalCreditCtx = document.getElementById('agriculturalCreditChart').getContext('2d');
+    new Chart(agriculturalCreditCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Hustler Fund', 'SACCO', 'Banks', 'Digital Loans', 'Friends/Family', 'Others'],
+            datasets: [{
+                data: [26.3, 24.6, 9.8, 6.2, 4.8, 28.3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)',
+                    'rgba(255, 159, 64, 0.7)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Agricultural Financing Sources (%)'
+                }
+            }
+        }
+    });
+
+    // Employment Structure Chart
+    const employmentStructureCtx = document.getElementById('employmentStructureChart').getContext('2d');
+    new Chart(employmentStructureCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Formal Wage', 'Formal Self', 'Informal'],
+            datasets: [{
+                data: [3213, 175, 17389],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(255, 99, 132, 0.7)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Employment Structure (Thousands)'
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

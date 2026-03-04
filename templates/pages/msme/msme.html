@@ -1,25 +1,22 @@
 {% extends "layout/base.html" %}
 {% load static %}
-{% load humanize %}
-{% block pillars %}active{% endblock %}
-
+{% block pillars  %}active{% endblock %}
 {% block content %}
-{%  include 'layout/pillar-nav.html' %}
+
+{% include "layout/pillar-nav.html" %}
+
 <div class="container section-title mt-3" data-aos="fade-up">
     <h2>
-        <span style="color: black;">DIGITAL SUPERHIGHWAY</span>
-        <span style="color: green;"> & CREATIVE ECONOMY</span>
+        <span style="color: black;">KUKUZA: BIASHARA,</span>
+        <span style="color: green;"> NAFASI ZA KAZI</span>
+        <span style="color: red;"> NA MAPATO MASHINANI!</span>
     </h2>
     <p>Under the BETA Pillars</p>
-
-    <div class="row">
+      <div class="row">
         <div class="col-md-12">
             <div class="stat-card">
                 <h2>Dashboard Coming soon...</h2>
             </div>
         </div>
-        
-    </div>
 </div>
-
 {% endblock %}

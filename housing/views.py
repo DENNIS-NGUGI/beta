@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.db.models import Sum
 from django.views.decorators.http import require_GET
-from django.contrib.auth.decorators import login_required
 
 from .models import (
     County,
@@ -14,7 +13,6 @@ from .models import (
 )
 
 
-@login_required
 def housing_dashboard(request):
     counties = County.objects.all().order_by("name")
     years = ReportingPeriod.objects.values_list("year", flat=True).distinct().order_by("year")
